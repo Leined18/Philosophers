@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/16 12:38:11 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/17 17:54:30 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,15 +54,11 @@ MOVE_UP     = \033[1A
 #==========NAMES===============================================================#
 
 NAME		:= philo
-LIBFT		:= $(LIBFT_DIR)libft.a
-
 #==========DIRECTORIES=======================================================#
 
 INC 			:= inc/
 SRC_DIR 		:= src/
 OBJ_DIR 		:= obj/
-LIBFT_DIR		:= libft/
-LIBFT_INC		:= $(LIBFT_DIR)inc/
 
 #==========COMMANDS============================================================#
 
@@ -72,8 +68,7 @@ RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
 MKDIR 		:= mkdir -p
-LDFLAGS		:= -L$(LIBFT_DIR) -lft -lm -fsanitize=address
-IFLAGS		:= -I$(INC) -I$(LIBFT_INC)
+IFLAGS		:= -I$(INC)
 
 
 #==========SOURCES============================================================#
@@ -81,7 +76,7 @@ IFLAGS		:= -I$(INC) -I$(LIBFT_INC)
 
 PHILO_FILES := philo
 
-#==========FILES###===========================================================#
+#==========FILES==============================================================#
 
 SRC_FILES+=$(PHILO_FILES)
 
@@ -91,8 +86,6 @@ DEPS := $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 #==========RULES==============================================================#
 
-
-
 all: $(NAME)
 bonus: $(BONUS)
 
@@ -100,22 +93,17 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 	@$(MKDIR) $(dir $@)	
 	@$(CC) $(CFLAGS) $(IFLAGS) -MP -MMD -c $< -o $@
 
-$(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD_CYAN)[$(BOLD_PURPLE)$(NAME)$(DEF_COLOR)$(BOLD_CYAN)] compiled!$(DEF_COLOR)"
 	@echo "$(BOLD_CYAN)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
 
-$(LIBFT):
-	@make -sC $(LIBFT_DIR)
-
 clean:
 	@$(RM) -rf $(OBJ_DIR)
-	@make clean -sC $(LIBFT_DIR)
 	@echo "$(CYAN)[$(NAME)]:\tobject files $(GREEN) => Cleaned!$(DEF_COLOR)"
 
 fclean: clean
 	@$(RM) -rf $(NAME)
-	@make fclean -sC $(LIBFT_DIR)
 	@echo "$(CYAN)[$(NAME)]:\texec. files $(GREEN) => Cleaned!$(DEF_COLOR)"
 
 re: fclean all
