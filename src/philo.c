@@ -144,9 +144,26 @@ void	*handle_thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->print);
-	printf("Philo: %d\n", philo->id);
-	pthread_mutex_unlock(&philo->print);
+	while (1)
+	{
+		pthread_mutex_lock(&philo->print);
+		pthread_mutex_lock(&philo->forks);
+		printf("%d has taken a fork\n", philo->id);
+		pthread_mutex_unlock(&philo->forks);
+		usleep(10000);
+		printf("%d is eating\n", philo->id);
+		usleep(10000);
+		printf("%d is sleeping\n", philo->id);
+		usleep(10000);
+		printf("%d is thinking\n", philo->id);
+		usleep(10000);
+		printf("%d died\n", philo->id);
+		usleep(10000);
+		pthread_mutex_unlock(&philo->print);
+		philo->is_dead = 1;
+		if (philo->is_dead)
+			break ;
+	}
 	return (NULL);
 }
 
