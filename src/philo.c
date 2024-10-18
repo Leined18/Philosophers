@@ -99,7 +99,7 @@ int	valid_args(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		if (ft_atoi(av[i]) <= 0)
+		if (ft_atoi(av[i]) <= 0 || ft_atoi(av[i]) > 10000000)
 			return (0);
 		i++;
 	}
