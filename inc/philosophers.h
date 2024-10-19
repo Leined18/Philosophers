@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:44:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/18 22:00:59 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/19 22:31:53 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				ntimes_eat;
+	int				stop_simulation;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks_mutexes;
 }					t_data;
@@ -54,6 +55,8 @@ typedef struct s_philo
 	pthread_t		thread;
 }					t_philo;
 
+// utils
+void				print_action(t_philo *philo, const char *action);
 long				get_current_time(void);
 int					valid_args(int ac, char **av);
 int					ft_atoi(const char *str);
@@ -65,12 +68,13 @@ t_philo				*init_philos(t_data *data);
 
 // data
 
-void				cleanup_data(t_data *data);
-void				*ft_free_error(t_philo *philo_data, char *err,
-						int exit_code);
+void				cleanup_data(t_data *data, t_philo *philo);
+void				*ft_error(char *err, int exit_code);
+void				ft_success(char *msg);
 // actions
 
-void				create_threads(t_philo *philos, void *(function)(void *));
+void				create_threads(t_philo *philos, void *(function)(void *),
+						t_data *data);
 void				destroy_mutexes(t_philo *philos);
 int					is_alive(t_philo *philo);
 void				*handle_thread(void *arg);

@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:03:07 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/18 21:23:54 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/19 22:33:37 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ int	valid_args(int ac, char **av)
 		i++;
 	}
 	return (1);
+}
+
+void	smart_sleep(long time_in_ms, t_philo *philo)
+{
+	long	start_time;
+
+	start_time = get_current_time();
+	while ((get_current_time() - start_time) < time_in_ms)
+	{
+		if (philo->data->stop_simulation)
+			break ;
+		usleep(100);
+	}
 }
 
 long	get_current_time(void)

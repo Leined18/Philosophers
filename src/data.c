@@ -24,8 +24,10 @@ t_data	*init_data(char **av)
 	if (av[5])
 		data->ntimes_eat = ft_atoi(av[5]);
 	if (!init_mutex(&data->print))
-		return (cleanup_data(data), NULL);
+		return (cleanup_data(data, NULL), NULL);
 	data->forks_mutexes = malloc(sizeof(pthread_mutex_t) * data->n_philos);
+	if (!data->forks_mutexes)
+		return (cleanup_data(data, NULL), NULL);
 	i = 0;
 	while (i < data->n_philos)
 		init_mutex(&data->forks_mutexes[i++]);
@@ -39,7 +41,7 @@ t_philo	*init_philos(t_data *data)
 
 	philos = (t_philo *)malloc(data->n_philos * sizeof(t_philo));
 	if (!philos)
-		cleanup_data(data);
+		return (cleanup_data(data, NULL), NULL);
 	i = 0;
 	while (i < data->n_philos)
 	{
