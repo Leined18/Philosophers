@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/18 22:00:42 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/20 17:48:28 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ IFLAGS		:= -I$(INC)
 #==========SOURCES============================================================#
 
 
-PHILO_FILES := actions data main thread utils free
+PHILO_FILES := actions data main threads utils lifecycle
 
 #==========FILES==============================================================#
 

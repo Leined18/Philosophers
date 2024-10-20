@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 10:44:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/19 22:31:53 by danpalac         ###   ########.fr       */
+/*   Created: 2024/10/20 17:23:53 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/20 18:37:47 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,37 +51,46 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
-	int				is_dead;
 	pthread_t		thread;
 }					t_philo;
+
+typedef struct s_memory
+{
+	t_data			*data;
+	t_philo			*philos;
+}					t_memory;
+
+void				cleanup_data(t_data **data, t_philo **philos);
+void				*ft_error(char *err, int exit_code, t_memory *mem);
+void				ft_success(char *msg, t_memory *mem);
+void				freedom(void **ptr);
 
 // utils
 void				print_action(t_philo *philo, const char *action);
 long				get_current_time(void);
 int					valid_args(int ac, char **av);
 int					ft_atoi(const char *str);
+void				smart_sleep(long time_in_ms, t_philo *philo);
 
-// init
-
+// data
+t_data				*allocate_and_initialize_data(char **av);
+int					init_forks_mutexes(t_data *data);
 t_data				*init_data(char **av);
 t_philo				*init_philos(t_data *data);
 
-// data
-
-void				cleanup_data(t_data *data, t_philo *philo);
-void				*ft_error(char *err, int exit_code);
-void				ft_success(char *msg);
-// actions
-
-void				create_threads(t_philo *philos, void *(function)(void *),
-						t_data *data);
-void				destroy_mutexes(t_philo *philos);
+// lifecycle
+void				lifecycle(t_philo *philo);
 int					is_alive(t_philo *philo);
-void				*handle_thread(void *arg);
-void				print_action(t_philo *philo, const char *action);
+
+// actions
 void				take_forks(t_philo *philo);
 void				eat(t_philo *philo);
 void				sleep_philo(t_philo *philo);
 void				think(t_philo *philo);
+// threads
+void				*handle_thread(void *arg);
+
+void				create_threads(t_memory *mem, void *(function)(void *));
+void				join_threads(t_memory *mem);
 
 #endif

@@ -1,4 +1,15 @@
-// src/actions.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/20 17:24:31 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/20 18:47:37 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	take_forks(t_philo *philo)
@@ -13,7 +24,7 @@ void	eat(t_philo *philo)
 {
 	print_action(philo, "is eating");
 	philo->last_meal = get_current_time();
-	usleep(philo->data->t_eat);
+	smart_sleep(philo->data->t_eat, philo);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -21,7 +32,7 @@ void	eat(t_philo *philo)
 void	sleep_philo(t_philo *philo)
 {
 	print_action(philo, "is sleeping");
-	usleep(philo->data->t_sleep);
+	smart_sleep(philo->data->t_sleep, philo);
 }
 
 void	think(t_philo *philo)
@@ -32,6 +43,6 @@ void	think(t_philo *philo)
 void	print_action(t_philo *philo, const char *action)
 {
 	pthread_mutex_lock(&philo->data->print);
-	printf("(%ld) %d %s\n", get_current_time(), philo->id, action);
+	printf("(%ld) [%d] %s\n", get_current_time(), philo->id, action);
 	pthread_mutex_unlock(&philo->data->print);
 }

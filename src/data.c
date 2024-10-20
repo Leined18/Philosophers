@@ -1,4 +1,15 @@
-// src/data.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/20 18:39:49 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	init_mutex(pthread_mutex_t *mutex)
@@ -8,29 +19,48 @@ int	init_mutex(pthread_mutex_t *mutex)
 	return (1);
 }
 
-t_data	*init_data(char **av)
+t_data	*allocate_and_initialize_data(char **av)
 {
 	t_data	*data;
-	int		i;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
 	memset(data, 0, sizeof(t_data));
 	data->n_philos = ft_atoi(av[1]);
+	data->forks = data->n_philos;
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		data->ntimes_eat = ft_atoi(av[5]);
-	if (!init_mutex(&data->print))
-		return (cleanup_data(data, NULL), NULL);
+	return (data);
+}
+
+int	init_forks_mutexes(t_data *data)
+{
+	int	i;
+
 	data->forks_mutexes = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (!data->forks_mutexes)
-		return (cleanup_data(data, NULL), NULL);
+		return (0);
 	i = 0;
 	while (i < data->n_philos)
-		init_mutex(&data->forks_mutexes[i++]);
+	{
+		if (!init_mutex(&data->forks_mutexes[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+t_data	*init_data(char **av)
+{
+	t_data	*data;
+
+	data = allocate_and_initialize_data(av);
+	if (!data || !init_forks_mutexes(data))
+		return (NULL);
 	return (data);
 }
 
@@ -41,7 +71,7 @@ t_philo	*init_philos(t_data *data)
 
 	philos = (t_philo *)malloc(data->n_philos * sizeof(t_philo));
 	if (!philos)
-		return (cleanup_data(data, NULL), NULL);
+		return (NULL);
 	i = 0;
 	while (i < data->n_philos)
 	{
