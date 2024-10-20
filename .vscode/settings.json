@@ -6,7 +6,13 @@
 	"utils.h": "c",
 	"stdio.h": "c",
 	"unistd.h": "c",
-	"string.h": "c"
+	"string.h": "c",
+	"main.h": "c",
+	"actions.h": "c",
+	"lifecycle.h": "c",
+	"threads.h": "c",
+	"time.h": "c",
+	"data.h": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

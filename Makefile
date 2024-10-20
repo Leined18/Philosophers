@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/20 17:48:28 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/20 20:42:42 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,12 @@ INC 			:= inc/
 SRC_DIR 		:= src/
 OBJ_DIR 		:= obj/
 
+ACTIONS_DIR		:= actions/
+DATA_DIR		:= data/
+MAIN_DIR		:= main/
+UTILS_DIR		:= utils/
+
+
 #==========COMMANDS============================================================#
 
 CC			:= gcc
@@ -73,12 +79,17 @@ IFLAGS		:= -I$(INC)
 
 #==========SOURCES============================================================#
 
-
-PHILO_FILES := actions data main threads utils lifecycle
+MAIN_FILES := main parse
+DATA_FILES := init_data free_data
+ACTIONS_FILES := actions life_cycle
+UTILS_FILES := utils threads
 
 #==========FILES==============================================================#
 
-SRC_FILES+=$(PHILO_FILES)
+SRC_FILES+=$(addprefix $(MAIN_DIR), $(MAIN_FILES))
+SRC_FILES+=$(addprefix $(DATA_DIR), $(DATA_FILES))
+SRC_FILES+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
+SRC_FILES+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SRCS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

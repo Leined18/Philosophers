@@ -6,18 +6,19 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:55:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 18:44:27 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/20 20:38:45 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "actions.h"
+#include "utils.h"
 
 void	*handle_thread(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!philo->data->stop_simulation)
+	while (!philo->data->state)
 	{
 		lifecycle(philo);
 		if (!is_alive(philo))
@@ -26,7 +27,7 @@ void	*handle_thread(void *arg)
 	return (NULL);
 }
 
-void	create_threads(t_memory *mem, void *(function)(void *))
+void	*create_threads(t_memory *mem, void *(function)(void *))
 {
 	int	i;
 
@@ -35,20 +36,22 @@ void	create_threads(t_memory *mem, void *(function)(void *))
 	{
 		if (pthread_create(&(mem->philos)[i].thread, NULL, function,
 				&(mem->philos)[i]))
-			ft_error("Error creating thread\n", 1, mem);
-		pthread_join((mem->philos)[i].thread, NULL);
+			return (NULL);
 		i++;
 	}
+	return (mem);
 }
 
-void	join_threads(t_memory *mem)
+void	*join_threads(t_memory *mem)
 {
 	int i;
 
 	i = 0;
 	while (i < mem->data->n_philos)
 	{
-		pthread_join((mem->philos)[i].thread, NULL);
+		if (!pthread_join((mem->philos)[i].thread, NULL))
+			return (NULL);
 		i++;
 	}
+	return (mem);
 }

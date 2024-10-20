@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 18:39:49 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/20 20:29:49 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "data.h"
 
 int	init_mutex(pthread_mutex_t *mutex)
 {
@@ -54,10 +54,11 @@ int	init_forks_mutexes(t_data *data)
 	return (1);
 }
 
-t_data	*init_data(char **av)
+t_data	*init_data(int ac, char **av)
 {
 	t_data	*data;
 
+	(void)ac;
 	data = allocate_and_initialize_data(av);
 	if (!data || !init_forks_mutexes(data))
 		return (NULL);

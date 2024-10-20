@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:24:31 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 18:47:37 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/20 20:10:12 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "actions.h"
 
 void	take_forks(t_philo *philo)
 {
