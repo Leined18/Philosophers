@@ -17,7 +17,7 @@ t_philo	*init_philos(t_data *data);
 // Declaraciones de funciones de parse
 void	freedom(void **ptr);
 void	cleanup_data(t_data **data, t_philo **philos);
-void	*ft_error(char *err, int exit_code, t_memory *mem);
-void	ft_success(char *msg, t_memory *mem);
+void	ft_error(char *err, int exit_code, t_memory *mem);
+void	ft_success(char *msg, int exit_code, t_memory *mem);
 
 #endif // data_H

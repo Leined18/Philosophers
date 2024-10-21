@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/21 11:58:10 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:08:29 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,15 @@ int	init_forks_mutexes(t_data *data)
 	while (i < data->n_philos)
 	{
 		if (!init_mutex(&data->forks_mutexes[i]))
+		{
+			while (i > 0)
+			{
+				i--;
+				pthread_mutex_destroy(&data->forks_mutexes[i]);
+			}
+			freedom((void **)&data->forks_mutexes);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -67,8 +75,8 @@ t_data	*init_data(int ac, char **av)
 
 t_philo	*init_philos(t_data *data)
 {
-	int i;
-	t_philo *philos;
+	int		i;
+	t_philo	*philos;
 
 	philos = (t_philo *)malloc(data->n_philos * sizeof(t_philo));
 	if (!philos)

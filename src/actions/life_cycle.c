@@ -21,12 +21,10 @@ void	*philo_thread(void *arg)
 	{
 		if (!philo->data->state)
 		{
-			take_forks(philo);
-			eat(philo);
-			sleep_philo(philo);
-			think(philo);
+			if (!eat(philo) || !sleep_philo(philo) || !think(philo))
+				return (NULL);
 		}
-		if (philo->data->state)
+		else if (philo->data->state)
 			break ;
 	}
 	return (NULL);

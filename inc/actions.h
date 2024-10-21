@@ -9,11 +9,10 @@ struct s_philo;
 struct s_data;
 
 // Declaraciones de funciones de acciones
-void	take_forks(t_philo *philo);
-void	eat(t_philo *philo);
-void	sleep_philo(t_philo *philo);
-void	think(t_philo *philo);
-void	print_action(t_philo *philo, const char *action);
+int		eat(t_philo *philo);
+int		sleep_philo(t_philo *philo);
+int		think(t_philo *philo);
+int		print_action(t_philo *philo, const char *colour, const char *action);
 
 // Declaraciones de funciones de ciclo de vida
 int		is_alive(t_philo *philo);

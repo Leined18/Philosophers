@@ -41,6 +41,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
+	int				times_eat;
 	long			last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -59,9 +60,11 @@ int					ft_atoi(const char *str);
 int					valid_args(int ac, char **av);
 void				smart_sleep(long time_in_ms, t_philo *philo);
 long				get_time(void);
+size_t				ft_strlen(const char *s);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // Declaraciones de funciones de manejo de hilos
-void				*create_threads(t_memory *mem, void *(function)(void *));
-void				*join_threads(t_memory *mem);
+int					create_threads(t_memory *mem, void *(function)(void *));
+int					join_threads(t_memory *mem);
 
 #endif // UTILS_H

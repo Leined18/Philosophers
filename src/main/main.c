@@ -3,20 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/21 12:43:49 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:02:47 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+static void	check_philos(t_memory *mem)
+{
+	int	ph;
+
+	ph = 0;
+	while (1)
+	{
+		if (!is_alive(&mem->philos[ph]))
+		{
+			printf("%s", RED);
+			printf("Philo %d %s\n", ph + 1, DIED);
+			printf("%s", RESET);
+			break ;
+		}
+		ph++;
+		if (ph >= mem->data->n_philos)
+			ph = 0;
+	}
+}
 
 static void	start_simulation(t_memory *mem)
 {
 	mem->data->start_time = get_time();
 	if (!create_threads(mem, philo_thread))
 		ft_error(THREAD_ERROR, 1, mem);
+	check_philos(mem);
 	if (!join_threads(mem))
 		ft_error(THREAD_JOIN_ERROR, 1, mem);
 }
@@ -32,21 +53,6 @@ static void	init_memory(t_memory *mem, int ac, char **av)
 		ft_error(PHILOS_ERROR, 1, mem);
 }
 
-void	check_philos(t_memory *mem)
-{
-	int	ph;
-
-	ph = 0;
-	while (1)
-	{
-		if (!is_alive(&mem->philos[ph]))
-			print_action(mem->philos, DIED);
-		ph++;
-		if (ph >= mem->data->n_philos)
-			ph = 0;
-	}
-}
-
 int	main(int ac, char **av)
 {
 	t_memory	mem;
@@ -55,8 +61,7 @@ int	main(int ac, char **av)
 		ft_error(ARGUMENTS_ERROR, 1, NULL);
 	init_memory(&mem, ac, av);
 	start_simulation(&mem);
-	check_philos(&mem);
 	cleanup_data(&mem.data, &mem.philos);
-	ft_success(THREAD_SUCCESS, &mem);
+	ft_success(THREAD_SUCCESS, 1, &mem);
 	return (0);
 }

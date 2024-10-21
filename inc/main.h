@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:23:53 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/21 11:59:02 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:25:40 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ struct s_memory;
 struct s_philo;
 struct s_data;
 
+# define SUCCESS "Funtion finished well\n"
 # define ARGUMENTS_ERROR "Error: invalid arguments\n"
 # define MEMORY_ERROR "Error allocating memory for data\n"
 # define PHILOS_ERROR "Error allocating memory for philos\n"
