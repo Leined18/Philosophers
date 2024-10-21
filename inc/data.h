@@ -3,6 +3,9 @@
 
 # include "utils.h"
 
+struct s_memory;
+struct s_philo;
+struct s_data;
 
 // Declaraciones de funciones de data
 int		init_mutex(pthread_mutex_t *mutex);

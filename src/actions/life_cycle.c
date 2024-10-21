@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lifecycle.c                                        :+:      :+:    :+:   */
+/*   routine.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,26 +12,35 @@
 
 #include "actions.h"
 
+void	*philo_thread(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (1)
+	{
+		if (!philo->data->state)
+		{
+			take_forks(philo);
+			eat(philo);
+			sleep_philo(philo);
+			think(philo);
+		}
+		if (philo->data->state)
+			break ;
+	}
+	return (NULL);
+}
+
 int	is_alive(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (get_current_time() - philo->last_meal > philo->data->t_die)
+	if (get_time() - philo->last_meal > philo->data->t_die)
 	{
-		printf("Philo %d died\n", philo->id);
 		philo->data->state = 1;
 		pthread_mutex_unlock(&philo->data->print);
 		return (0);
 	}
 	pthread_mutex_unlock(&philo->data->print);
 	return (1);
-}
-
-void	lifecycle(t_philo *philo)
-{
-	take_forks(philo);
-	eat(philo);
-	if (!is_alive(philo))
-		return ;
-	sleep_philo(philo);
-	think(philo);
 }

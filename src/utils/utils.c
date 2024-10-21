@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 20:21:45 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:12:30 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,24 @@ int	ft_atoi(const char *str)
 	return (num * sign);
 }
 
-int	valid_args(int ac, char **av)
-{
-	int	i;
-
-	if (ac < 5 || ac > 6)
-		return (0);
-	i = 1;
-	while (i < ac)
-		if (ft_atoi(av[i++]) <= 0)
-			return (0);
-	return (1);
-}
-
 void	smart_sleep(long time_in_ms, t_philo *philo)
 {
 	long	start_time;
+	long	elapsed_time;
 
-	start_time = get_current_time();
-	while ((get_current_time() - start_time) < time_in_ms)
+	start_time = get_time();
+	while (1)
 	{
-		if (philo->data->state)
+		elapsed_time = get_time() - start_time;
+		if (elapsed_time >= time_in_ms || philo->data->state)
 			break ;
-		usleep(100);
+		usleep(10);
 	}
 }
-
-long	get_current_time(void)
+long	get_time(void)
 {
-	struct timeval	tv;
+	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }

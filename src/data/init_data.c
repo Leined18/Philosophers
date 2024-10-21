@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 20:29:49 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:58:10 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	init_mutex(pthread_mutex_t *mutex)
 	return (1);
 }
 
-t_data	*allocate_and_initialize_data(char **av)
+t_data	*alloc_init(char **av)
 {
 	t_data	*data;
 
@@ -59,7 +59,7 @@ t_data	*init_data(int ac, char **av)
 	t_data	*data;
 
 	(void)ac;
-	data = allocate_and_initialize_data(av);
+	data = alloc_init(av);
 	if (!data || !init_forks_mutexes(data))
 		return (NULL);
 	return (data);
@@ -83,5 +83,6 @@ t_philo	*init_philos(t_data *data)
 		philos[i].right_fork = &data->forks_mutexes[(i + 1) % data->n_philos];
 		i++;
 	}
+	data->philos = philos;
 	return (philos);
 }

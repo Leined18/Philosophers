@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:55:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 20:38:45 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:01:45 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actions.h"
-#include "utils.h"
-
-void	*handle_thread(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (!philo->data->state)
-	{
-		lifecycle(philo);
-		if (!is_alive(philo))
-			break ;
-	}
-	return (NULL);
-}
+#include "main.h"
 
 void	*create_threads(t_memory *mem, void *(function)(void *))
 {

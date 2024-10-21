@@ -3,34 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 20:31:08 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:43:49 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+static void	start_simulation(t_memory *mem)
+{
+	mem->data->start_time = get_time();
+	if (!create_threads(mem, philo_thread))
+		ft_error(THREAD_ERROR, 1, mem);
+	if (!join_threads(mem))
+		ft_error(THREAD_JOIN_ERROR, 1, mem);
+}
+static void	init_memory(t_memory *mem, int ac, char **av)
+{
+	mem->data = NULL;
+	mem->philos = NULL;
+	mem->data = init_data(ac, av);
+	if (!mem->data)
+		ft_error(MEMORY_ERROR, 1, mem);
+	mem->philos = init_philos(mem->data);
+	if (!mem->philos)
+		ft_error(PHILOS_ERROR, 1, mem);
+}
+
+void	check_philos(t_memory *mem)
+{
+	int	ph;
+
+	ph = 0;
+	while (1)
+	{
+		if (!is_alive(&mem->philos[ph]))
+			print_action(mem->philos, DIED);
+		ph++;
+		if (ph >= mem->data->n_philos)
+			ph = 0;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_memory	mem;
 
-	mem.data = NULL;
-	mem.philos = NULL;
 	if (!valid_args(ac, av))
-		ft_error("Error: invalid arguments\n", 1, &mem);
-	mem.data = init_data(ac, av);
-	if (!mem.data)
-		ft_error("Error allocating memory for data\n", 1, &mem);
-	mem.philos = init_philos(mem.data);
-	if (!mem.philos)
-		ft_error("Error allocating memory for philos\n", 1, &mem);
-	create_threads(&mem, handle_thread);
-	while (!mem.data->state)
-		usleep(100);
-	join_threads(&mem);
+		ft_error(ARGUMENTS_ERROR, 1, NULL);
+	init_memory(&mem, ac, av);
+	start_simulation(&mem);
+	check_philos(&mem);
 	cleanup_data(&mem.data, &mem.philos);
-	ft_success("All threads finished\n", &mem);
+	ft_success(THREAD_SUCCESS, &mem);
 	return (0);
 }

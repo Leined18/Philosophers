@@ -20,8 +20,12 @@
 # define RESET "\033[0m"
 
 // Estructuras de datos
+
+struct s_philo;
+
 typedef struct s_data
 {
+	long			start_time;
 	int				forks;
 	int				n_philos;
 	int				t_die;
@@ -31,12 +35,12 @@ typedef struct s_data
 	int				state;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks_mutexes;
+	struct s_philo	*philos;
 }					t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	int				time_stamp;
 	long			last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -54,10 +58,9 @@ typedef struct s_memory
 int					ft_atoi(const char *str);
 int					valid_args(int ac, char **av);
 void				smart_sleep(long time_in_ms, t_philo *philo);
-long				get_current_time(void);
+long				get_time(void);
 
 // Declaraciones de funciones de manejo de hilos
-void				*handle_thread(void *arg);
 void				*create_threads(t_memory *mem, void *(function)(void *));
 void				*join_threads(t_memory *mem);
 
