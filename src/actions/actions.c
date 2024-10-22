@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:24:31 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 15:14:19 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:45:39 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	eat(t_philo *philo)
 		return (0);
 	if (!print_action(philo, GREEN, EATING))
 		return (0);
-	smart_sleep(philo->data->t_eat, philo);
 	philo->last_meal = get_time();
+	smart_sleep(philo->data->t_eat, philo);
 	if (philo->meals)
 		philo->meals--;
 	if (!is_alive(philo))

@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 13:52:30 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:42:52 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	start_simulation(t_memory *mem)
 {
-	mem->data->start_time = get_time();
 	if (!create_threads(mem, philo_thread))
 		ft_error(THREAD_ERROR, 1, mem);
 	monitor_philos(mem);

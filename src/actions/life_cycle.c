@@ -17,6 +17,8 @@ void	*philo_thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (!philo->data->start_time)
+		philo->data->start_time = get_time();
 	while (1)
 	{
 		if (!philo->data->state)
