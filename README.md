@@ -35,7 +35,7 @@ The program is executed with the following command:
 
 ### Example:
 ```bash
-./philosophers 5 800 200 200
+./philo 5 800 200 200
 ```
 This creates a simulation with 5 philosophers. Each philosopher has 800ms to live without eating, 200ms to eat, and 200ms to sleep.
 
