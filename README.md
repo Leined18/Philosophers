@@ -23,7 +23,7 @@ This will generate the executable file for the simulation.
 ## Execution
 The program is executed with the following command:
 ```bash
-./philosophers <num_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [num_meals]
+./philo <num_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [num_meals]
 ```
 
 ### Parameters:
