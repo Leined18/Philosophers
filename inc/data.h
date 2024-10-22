@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/22 13:53:46 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/22 13:53:47 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DATA_H
 # define DATA_H
 
 # include "utils.h"
 
-struct s_memory;
-struct s_philo;
-struct s_data;
+struct	s_memory;
+struct	s_philo;
+struct	s_data;
 
 // Declaraciones de funciones de data
 int		init_mutex(pthread_mutex_t *mutex);

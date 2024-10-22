@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 12:11:12 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:54:08 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_atoi(const char *str)
 	int	sign;
 	int	i;
 
-	num = 0, sign = 1, i = 0;
+	num = 0;
+	sign = 1;
+	i = 0;
 	if (!str)
 		return (0);
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
@@ -59,7 +61,6 @@ int	try_lock_and_print(pthread_mutex_t *fork, t_philo *philo,
 {
 	if (philo->data->state)
 		return (0);
-
 	pthread_mutex_lock(fork);
 	if (!print_action(philo, WHITE, fork_name))
 	{

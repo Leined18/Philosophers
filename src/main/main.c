@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 10:40:26 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:52:30 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	start_simulation(t_memory *mem)
 	if (!join_threads(mem))
 		ft_error(THREAD_JOIN_ERROR, 1, mem);
 }
+
 static void	init_memory(t_memory *mem, int ac, char **av)
 {
 	mem->data = NULL;

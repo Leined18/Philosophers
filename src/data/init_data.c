@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 13:24:46 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:52:52 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_data	*init_data(int ac, char **av)
 
 t_philo	*init_philos(t_data *data)
 {
-	int i;
-	t_philo *philos;
+	int		i;
+	t_philo	*philos;
 
 	philos = (t_philo *)malloc(data->n_philos * sizeof(t_philo));
 	if (!philos)

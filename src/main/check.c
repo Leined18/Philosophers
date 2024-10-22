@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:09:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 11:23:08 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:17:58 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	check_meals(t_memory *mem)
 	int	meals_remaining;
 
 	ph = 0;
+	if (!mem->data->ntimes_eat)
+		return (1);
 	meals_remaining = mem->data->n_philos;
 	while (ph < mem->data->n_philos)
 	{
@@ -47,23 +49,24 @@ static int	check_meals(t_memory *mem)
 			meals_remaining--;
 		ph++;
 	}
-	return (!meals_remaining);
+	return (meals_remaining);
 }
 
 void	monitor_philos(t_memory *mem)
 {
-	int dead_philo;
+	int	dead_philo;
 
 	while (1)
 	{
 		if (!check_life(mem, &dead_philo))
 		{
 			printf("%s", RED);
-			printf("Philo %d %s\n", dead_philo + 1, DIED);
+			printf("[%ld] Philo [%d]  %s\n", get_time()
+				- mem->data->start_time, dead_philo + 1, DIED);
 			printf("%s", RESET);
 			break ;
 		}
-		if (check_meals(mem))
+		if (!check_meals(mem))
 		{
 			mem->data->state = 2;
 			break ;

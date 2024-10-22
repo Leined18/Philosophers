@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:55:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/21 18:03:42 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:52:13 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	create_threads(t_memory *mem, void *(function)(void *))
 	while (i < mem->data->n_philos)
 	{
 		if (pthread_create(&(mem->philos)[i].thread, NULL, function,
-				&(mem->philos)[i]))
+			&(mem->philos)[i]))
 			return (0);
 		i++;
 	}
@@ -29,7 +29,7 @@ int	create_threads(t_memory *mem, void *(function)(void *))
 
 int	join_threads(t_memory *mem)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < mem->data->n_philos)

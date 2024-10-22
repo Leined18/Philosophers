@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 09:15:02 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:51:22 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_success(char *msg, int exit_code, t_memory *mem)
 
 int	valid_args(int ac, char **av)
 {
-	int i;
+	int	i;
 
 	if (ac < 5 || ac > 6)
 		return (0);

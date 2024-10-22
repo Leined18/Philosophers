@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/22 14:59:41 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "colors.h"
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -8,17 +21,6 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-
-// Definiciones de colores para imprimir en la terminal
-# define BLACK "\033[0;30m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
-# define WHITE "\033[0;37m"
-# define RESET "\033[0m"
 
 // Estructuras de datos
 
@@ -63,8 +65,6 @@ int					ft_atoi(const char *str);
 int					valid_args(int ac, char **av);
 void				smart_sleep(long time_in_ms, t_philo *philo);
 long				get_time(void);
-int					try_lock_and_print(pthread_mutex_t *fork, t_philo *philo,
-						const char *fork_name);
 
 // Declaraciones de funciones de manejo de hilos
 int					create_threads(t_memory *mem, void *(function)(void *));

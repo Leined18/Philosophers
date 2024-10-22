@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:26:25 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 12:45:20 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:52:41 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "data.h"
+#include "data.h"
 
 void	freedom(void **ptr)
 {
@@ -23,7 +23,7 @@ void	freedom(void **ptr)
 
 void	cleanup_data(t_data **data, t_philo **philos)
 {
-	int i;
+	int	i;
 
 	if (philos)
 		freedom((void **)philos);
