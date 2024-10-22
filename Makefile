@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/22 10:03:36 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/22 19:17:19 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,11 @@ DARK_GRAY   = \033[38;5;235m
 LIGHT_RED   = \033[38;5;203m
 LIGHT_BLUE  = \033[38;5;75m
 
+BRIGHT_BLUE = \033[38;5;27m
+BRIGHT_GREEN= \033[38;5;46m
+BRIGHT_YELLOW=\033[38;5;226m
+BRIGHT_CYAN = \033[38;5;51m
+BRIGHT_WHITE= \033[38;5;231m
 
 # Reseteo de color
 NO_COLOR    = \033[0m
@@ -54,6 +59,8 @@ MOVE_UP     = \033[1A
 #==========NAMES===============================================================#
 
 NAME		:= philo
+BONUS_NAME	:= philo_bonus
+
 #==========DIRECTORIES=======================================================#
 
 INC 			:= inc/
@@ -84,6 +91,11 @@ DATA_FILES := init_data free_data
 ACTIONS_FILES := actions life_cycle
 UTILS_FILES := utils threads
 
+#==========BONUS==FILES========================================================#
+
+BONUS_FILES := main_bonus
+BONUS_DIR := bonus/
+
 #==========FILES==============================================================#
 
 SRC_FILES+=$(addprefix $(MAIN_DIR), $(MAIN_FILES))
@@ -91,23 +103,40 @@ SRC_FILES+=$(addprefix $(DATA_DIR), $(DATA_FILES))
 SRC_FILES+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
 SRC_FILES+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
+SRC_FILES_BONUS := $(addprefix $(BONUS_DIR), $(BONUS_FILES))
+
 SRCS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))
+
 OBJS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+OBJS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES_BONUS)))
+
 DEPS := $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
+DEPS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES_BONUS)))
 
 #==========RULES==============================================================#
 
 all: $(NAME)
-bonus: $(BONUS)
+
+bonus: $(BONUS_NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 	@$(MKDIR) $(dir $@)	
 	@$(CC) $(CFLAGS) $(IFLAGS) -MP -MMD -c $< -o $@
 
+$(OBJ_DIR)%.o: $(SRC_DIR)$(BONUS_DIR)%.c Makefile
+	@$(MKDIR) $(dir $@)	
+	@$(CC) $(CFLAGS) $(IFLAGS) -MP -MMD -c $< -o $@
+
+$(BONUS_NAME): $(OBJS_BONUS)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(BONUS_NAME)
+	@echo "$(BOLD_BLUE)[$(BRIGHT_GREEN)$(BONUS_NAME)$(DEF_COLOR)$(BOLD_BLUE)]$(BOLD_BLUE) compiled!$(DEF_COLOR)"
+	@echo "$(TURQUOISE)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
+
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(BOLD_CYAN)[$(BOLD_PURPLE)$(NAME)$(DEF_COLOR)$(BOLD_CYAN)] compiled!$(DEF_COLOR)"
-	@echo "$(BOLD_CYAN)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
+	@echo "$(BOLD_BLUE)[$(BRIGHT_GREEN)$(NAME)$(DEF_COLOR)$(BOLD_BLUE)] compiled!$(DEF_COLOR)"
+	@echo "$(TURQUOISE)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
 
 clean:
 	@$(RM) -rf $(OBJ_DIR)
@@ -119,7 +148,7 @@ fclean: clean
 
 re: fclean all
 
--include $(DEPS)
+-include $(DEPS) $(DEPS_BONUS)
 
 .SILENT: all clean fclean
 .PHONY: all clean fclean re bonus
