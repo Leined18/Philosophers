@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,23 +27,25 @@ struct s_philo;
 typedef struct s_data
 {
 	long			start_time;
-	int				forks;
+	int				*forks;
+	pthread_mutex_t	*forks_mutexes;
 	int				n_philos;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
 	int				ntimes_eat;
 	int				state;
-	pthread_mutex_t	print;
-	pthread_mutex_t	*forks_mutexes;
+	pthread_mutex_t	mutex;
+
 	struct s_philo	*philos;
 }					t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	int				times_eat;
+	size_t			meals;
 	long			last_meal;
+	int				*id_forks[2];
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
@@ -60,11 +63,12 @@ int					ft_atoi(const char *str);
 int					valid_args(int ac, char **av);
 void				smart_sleep(long time_in_ms, t_philo *philo);
 long				get_time(void);
-size_t				ft_strlen(const char *s);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					try_lock_and_print(pthread_mutex_t *fork, t_philo *philo,
+						const char *fork_name);
 
 // Declaraciones de funciones de manejo de hilos
 int					create_threads(t_memory *mem, void *(function)(void *));
 int					join_threads(t_memory *mem);
-
+int					print_action(t_philo *philo, const char *colour,
+						const char *action);
 #endif // UTILS_H

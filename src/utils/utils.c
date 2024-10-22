@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/21 17:51:36 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:11:12 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	smart_sleep(long time_in_ms, t_philo *philo)
 		elapsed_time = get_time() - start_time;
 		if (elapsed_time >= time_in_ms || philo->data->state)
 			break ;
-		usleep(10);
+		usleep(100);
 	}
 }
 
@@ -54,29 +54,17 @@ long	get_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-size_t	ft_strlen(const char *s)
+int	try_lock_and_print(pthread_mutex_t *fork, t_philo *philo,
+		const char *fork_name)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	if (!s[i])
-		return (i);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	if (n == 0)
+	if (philo->data->state)
 		return (0);
-	while (*s1 && *s2 && *s1 == *s2 && n > 1)
+
+	pthread_mutex_lock(fork);
+	if (!print_action(philo, WHITE, fork_name))
 	{
-		s1++;
-		s2++;
-		n--;
+		pthread_mutex_unlock(fork);
+		return (0);
 	}
-	return (((unsigned char)(*s1) - (unsigned char)(*s2)));
+	return (1);
 }

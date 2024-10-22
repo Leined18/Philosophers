@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/20 20:42:42 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/22 10:03:36 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ UTILS_DIR		:= utils/
 #==========COMMANDS============================================================#
 
 CC			:= gcc
-CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=undefined -pthread
 RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
@@ -79,7 +79,7 @@ IFLAGS		:= -I$(INC)
 
 #==========SOURCES============================================================#
 
-MAIN_FILES := main parse
+MAIN_FILES := main parse check
 DATA_FILES := init_data free_data
 ACTIONS_FILES := actions life_cycle
 UTILS_FILES := utils threads

@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:26:25 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/20 20:39:34 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:45:20 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	cleanup_data(t_data **data, t_philo **philos)
 				}
 				freedom((void **)&(*data)->forks_mutexes);
 			}
-			pthread_mutex_destroy(&(*data)->print);
+			pthread_mutex_destroy(&(*data)->mutex);
+			freedom((void **)&(*data)->forks);
 			freedom((void **)data);
 		}
 	}
