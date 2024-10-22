@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 13:52:52 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:59:00 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "utils.h"
 
 int	init_mutex(pthread_mutex_t *mutex)
 {
@@ -52,19 +52,17 @@ t_data	*init_data(int ac, char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	data->n_philos = ft_atoi(av[1]);
-	data->forks = (int *)malloc(sizeof(int) * data->n_philos);
-	if (!data->forks)
-		return (freedom((void *)&data), NULL);
 	memset(data, 0, sizeof(t_data));
+	if (!data)
+		return (NULL);
 	data->n_philos = ft_atoi(av[1]);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		data->ntimes_eat = ft_atoi(av[5]);
-	if (!data || !init_forks_mutexes(data))
-		return (freedom((void *)&data->forks), freedom((void *)&data), NULL);
+	if (!init_forks_mutexes(data))
+		return (freedom((void *)&data), NULL);
 	return (data);
 }
 
@@ -86,8 +84,6 @@ t_philo	*init_philos(t_data *data)
 		philos[i].left_fork = &data->forks_mutexes[i];
 		philos[i].right_fork = &data->forks_mutexes[(i + 1) % data->n_philos];
 		philos[i].last_meal = get_time();
-		philos[i].id_forks[0] = &data->forks[i];
-		philos[i].id_forks[1] = &data->forks[(i + 1) % data->n_philos];
 		i++;
 	}
 	data->philos = philos;

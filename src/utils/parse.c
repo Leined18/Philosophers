@@ -6,13 +6,13 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 13:51:22 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:10:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "utils.h"
 
-void	ft_error(char *err, int exit_code, t_memory *mem)
+int	ft_error(char *err, t_memory *mem)
 {
 	if (err && *err)
 	{
@@ -22,11 +22,10 @@ void	ft_error(char *err, int exit_code, t_memory *mem)
 	}
 	if (mem)
 		cleanup_data(&mem->data, &mem->philos);
-	if (exit_code)
-		exit(EXIT_FAILURE);
+	return (0);
 }
 
-void	ft_success(char *msg, int exit_code, t_memory *mem)
+int	ft_success(char *msg, t_memory *mem)
 {
 	if (msg && *msg)
 	{
@@ -36,8 +35,7 @@ void	ft_success(char *msg, int exit_code, t_memory *mem)
 	}
 	if (mem)
 		cleanup_data(&mem->data, &mem->philos);
-	if (exit_code)
-		exit(EXIT_SUCCESS);
+	return (1);
 }
 
 int	valid_args(int ac, char **av)

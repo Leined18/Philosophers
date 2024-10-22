@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/22 19:18:06 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/22 20:23:04 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ ACTIONS_DIR		:= actions/
 DATA_DIR		:= data/
 MAIN_DIR		:= main/
 UTILS_DIR		:= utils/
+THREAD_DIR		:= thread/
 
 
 #==========COMMANDS============================================================#
@@ -86,10 +87,11 @@ IFLAGS		:= -I$(INC)
 
 #==========SOURCES============================================================#
 
-MAIN_FILES := main parse check
+MAIN_FILES := main check
 DATA_FILES := init_data free_data
 ACTIONS_FILES := actions life_cycle
-UTILS_FILES := utils threads
+UTILS_FILES := utils parse
+THREAD_FILES := thread
 
 #==========BONUS==FILES========================================================#
 
@@ -102,8 +104,11 @@ SRC_FILES+=$(addprefix $(MAIN_DIR), $(MAIN_FILES))
 SRC_FILES+=$(addprefix $(DATA_DIR), $(DATA_FILES))
 SRC_FILES+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
 SRC_FILES+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+SRC_FILES+=$(addprefix $(THREAD_DIR), $(THREAD_FILES))
 
-SRC_FILES_BONUS := $(addprefix $(BONUS_DIR), $(BONUS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(BONUS_DIR), $(BONUS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(DATA_DIR), free_data)
 
 SRCS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))

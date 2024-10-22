@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 15:50:00 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:03:00 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,4 @@ long	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-int	try_lock_and_print(pthread_mutex_t *fork, t_philo *philo,
-		const char *fork_name)
-{
-	if (philo->data->state)
-		return (0);
-	pthread_mutex_lock(fork);
-	if (!print_action(philo, WHITE, fork_name))
-	{
-		pthread_mutex_unlock(fork);
-		return (0);
-	}
-	return (1);
 }

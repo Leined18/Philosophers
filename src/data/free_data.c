@@ -6,11 +6,13 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:26:25 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 13:52:41 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:17:47 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "utils.h"
+
+void	cleanup_data(t_data **data, t_philo **philos);
 
 void	freedom(void **ptr)
 {
@@ -42,7 +44,6 @@ void	cleanup_data(t_data **data, t_philo **philos)
 				freedom((void **)&(*data)->forks_mutexes);
 			}
 			pthread_mutex_destroy(&(*data)->mutex);
-			freedom((void **)&(*data)->forks);
 			freedom((void **)data);
 		}
 	}
