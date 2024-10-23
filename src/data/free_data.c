@@ -6,13 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:26:25 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 20:17:47 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:23:03 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-void	cleanup_data(t_data **data, t_philo **philos);
 
 void	freedom(void **ptr)
 {

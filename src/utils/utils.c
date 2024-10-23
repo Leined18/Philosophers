@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 20:03:00 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:00:11 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	smart_sleep(long time_in_ms, t_philo *philo)
 
 long	get_time(void)
 {
-	struct timeval	tv;
+	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));

@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:09:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 20:05:06 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:01:43 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	check_life(t_memory *mem, int *dead_philo)
 		if (!is_alive(&mem->philos[ph]))
 		{
 			*dead_philo = ph;
+			pthread_mutex_unlock(mem->philos[ph].right_fork);
+			pthread_mutex_unlock(mem->philos[ph].left_fork);
 			return (0);
 		}
 		ph++;
@@ -61,8 +63,8 @@ void	monitor_philos(t_memory *mem)
 		if (!check_life(mem, &dead_philo))
 		{
 			printf("%s", RED);
-			printf("[%ld] Philo [%d]  %s\n", get_time()
-				- mem->data->start_time, dead_philo + 1, DIED);
+			printf("[%ld] Philo [%d]  %s\n", get_time() - mem->data->start_time,
+				dead_philo + 1, DIED);
 			printf("%s", RESET);
 			break ;
 		}
