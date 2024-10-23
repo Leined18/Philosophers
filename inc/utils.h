@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 20:15:24 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:59:57 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,14 @@ int		ft_success(char *msg, t_memory *mem);
 # define THREAD_JOIN_ERROR "\033[1;31m👥 Error: Joining threads failed!\n\033[0m"
 # define THREAD_CLEANUP_ERROR "\033[1;31m🧹 Error: Cleanup of threads failed!\n\033[0m"
 # define THREAD_SUCCESS "\033[1;32m🎉 Success: All threads finished!\n\033[0m"
+// actions
+// Definiciones de acciones con estilo
+// Definiciones de acciones
+# define DIED "💀 is dead..."
+# define L_FORK "🍴✨ has taken the left fork!"
+# define R_FORK "🍴✨ has taken the right fork!"
+# define EATING "🍽️  is eating!"
+# define SLEEPING "😴 is sleeping!"
+# define THINKING "🤔 is thinking!"
 
 #endif // UTILS_H
