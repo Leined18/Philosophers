@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 17:00:11 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:53:54 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,21 @@ int	ft_atoi(const char *str)
 
 void	smart_sleep(long time_in_ms, t_philo *philo)
 {
-	long	start_time;
-	long	elapsed_time;
+	long long	start_time;
+	long long	elapsed_time;
 
 	start_time = get_time();
+	elapsed_time = 0;
 	while (1)
 	{
 		elapsed_time = get_time() - start_time;
 		if (elapsed_time >= time_in_ms || philo->data->state)
-			break ;
-		usleep(100);
+			return ;
+		usleep(10);
 	}
 }
 
-long	get_time(void)
+long long	get_time(void)
 {
 	struct timeval tv;
 

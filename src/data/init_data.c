@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 17:05:14 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:17:12 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_data	*init_data(int ac, char **av)
 	data->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		data->ntimes_eat = ft_atoi(av[5]);
-	if (!init_forks_mutexes(data))
+	if (!init_forks_mutexes(data) || !init_mutex(&data->print))
 		return (freedom((void *)&data), NULL);
 	return (data);
 }

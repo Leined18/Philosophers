@@ -1,41 +1,31 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/20 17:24:31 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 16:57:53 by danpalac         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "actions.h"
 
-static int	take_forks(t_philo *philo)
+int	take_forks(t_philo *philo)
 {
 	if (philo->data->state)
 		return (0);
-	if (philo->id % 2 == 0)
+	if (!(philo->id % 2))
 	{
 		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK))
+		if (!print_action(philo, YELLOW, L_FORK, 0))
 			return (pthread_mutex_unlock(philo->left_fork), 0);
 		pthread_mutex_lock(philo->right_fork);
-		if (!print_action(philo, YELLOW, R_FORK))
-			return (pthread_mutex_unlock(philo->right_fork),
-				pthread_mutex_unlock(philo->left_fork), 0);
+		if (!print_action(philo, YELLOW, R_FORK, 0))
+			return (pthread_mutex_unlock(philo->left_fork),
+				pthread_mutex_unlock(philo->right_fork), 0);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->right_fork);
-		if (!print_action(philo, YELLOW, R_FORK))
+		if (!print_action(philo, YELLOW, R_FORK, 0))
 			return (pthread_mutex_unlock(philo->right_fork), 0);
 		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK))
-			return (pthread_mutex_unlock(philo->left_fork),
-				pthread_mutex_unlock(philo->right_fork), 0);
+		if (!print_action(philo, YELLOW, L_FORK, 0))
+			return (pthread_mutex_unlock(philo->right_fork),
+				pthread_mutex_unlock(philo->left_fork), 0);
 	}
+	if (philo->data->state)
+		return (0);
 	return (1);
 }
 
@@ -43,50 +33,54 @@ int	eat(t_philo *philo)
 {
 	if (!take_forks(philo))
 		return (0);
-	if (!print_action(philo, GREEN, EATING))
-		return (0);
-	philo->last_meal = get_time();
-	smart_sleep(philo->data->t_eat, philo);
-	if (philo->meals)
-		philo->meals--;
-	if (!is_alive(philo))
+	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
 		return (pthread_mutex_unlock(philo->left_fork),
 			pthread_mutex_unlock(philo->right_fork), 0);
-	return (pthread_mutex_unlock(philo->left_fork),
-		pthread_mutex_unlock(philo->right_fork), 1);
+	philo->last_meal = get_time();
+	if (philo->meals)
+		philo->meals--;
+	if (philo->id % 2)
+		return (pthread_mutex_unlock(philo->left_fork),
+			pthread_mutex_unlock(philo->right_fork), 1);
+	return (pthread_mutex_unlock(philo->right_fork),
+		pthread_mutex_unlock(philo->left_fork), 1);
 }
 
 int	sleep_philo(t_philo *philo)
 {
-	if (!print_action(philo, BLUE, SLEEPING))
+	if (!print_action(philo, BLUE, SLEEPING, philo->data->t_sleep))
 		return (0);
-	smart_sleep(philo->data->t_sleep, philo);
 	return (1);
 }
 
 int	think(t_philo *philo)
 {
-	if (!print_action(philo, PURPLE, THINKING))
+	if (!print_action(philo, PURPLE, THINKING, 0))
 		return (0);
 	return (1);
 }
 
-int	print_action(t_philo *philo, const char *color, const char *action)
+int	print_action(t_philo *philo, const char *color, const char *action,
+		long wait_time)
 {
 	long	time_elapsed;
 
 	if (philo->data->state)
 		return (0);
-	pthread_mutex_lock(&philo->data->mutex);
+	pthread_mutex_lock(&philo->data->print);
 	if (philo->data->state)
-		return (pthread_mutex_unlock(&philo->data->mutex), 0);
+	{
+		pthread_mutex_unlock(&philo->data->print);
+		return (0);
+	}
 	time_elapsed = get_time() - philo->data->start_time;
 	printf("%s[%s%2ld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);
 	printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, philo->id, RESET,
 		BOLD_BLUE);
 	printf(" %s%s\n", color, action);
 	printf(RESET);
-	if (philo->data->state)
-		return (pthread_mutex_unlock(&philo->data->mutex), 0);
-	return (pthread_mutex_unlock(&philo->data->mutex), 1);
+	pthread_mutex_unlock(&philo->data->print);
+	if (wait_time > 0)
+		smart_sleep(wait_time, philo);
+	return (1);
 }

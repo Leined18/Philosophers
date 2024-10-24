@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 11:59:57 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:58:38 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,26 @@
 # include <unistd.h>
 
 // Declaraciones de funciones utilitarias
-int		ft_atoi(const char *str);
-int		valid_args(int ac, char **av);
-void	smart_sleep(long time_in_ms, t_philo *philo);
-long	get_time(void);
+int			ft_atoi(const char *str);
+int			valid_args(int ac, char **av);
+void		smart_sleep(long time_in_ms, t_philo *philo);
+long long	get_time(void);
 
 // Declaraciones de funciones de manejo de hilos
-int		create_threads(t_memory *mem, void *(function)(void *));
-int		join_threads(t_memory *mem);
-int		print_action(t_philo *philo, const char *colour, const char *action);
+int			create_threads(t_memory *mem, void *(function)(void *));
+int			join_threads(t_memory *mem);
 // Declaraciones de funciones de data
-int		init_mutex(pthread_mutex_t *mutex);
-t_data	*allocate_and_initialize_data(char **av);
-int		init_forks_mutexes(t_data *data);
-t_data	*init_data(int ac, char **av);
-t_philo	*init_philos(t_data *data);
+int			init_mutex(pthread_mutex_t *mutex);
+t_data		*allocate_and_initialize_data(char **av);
+int			init_forks_mutexes(t_data *data);
+t_data		*init_data(int ac, char **av);
+t_philo		*init_philos(t_data *data);
 
 // Declaraciones de funciones de parse
-void	freedom(void **ptr);
-void	cleanup_data(t_data **data, t_philo **philos);
-int		ft_error(char *err, t_memory *mem);
-int		ft_success(char *msg, t_memory *mem);
+void		freedom(void **ptr);
+void		cleanup_data(t_data **data, t_philo **philos);
+int			ft_error(char *err, t_memory *mem);
+int			ft_success(char *msg, t_memory *mem);
 
 # define SUCCESS "\033[1;32m✅ Success: Funtion finished well!\n\033[0m" // Verde
 # define ERROR "\033[1;31m❌ Error: Error in function!\n\033[0m" // Rojo

@@ -25,28 +25,12 @@ void	*philo_thread(void *arg)
 	{
 		if (!philo->data->state)
 		{
-			if (!eat(philo))
-				return (NULL);
-			if (!sleep_philo(philo))
-				return (NULL);
-			if (!think(philo))
+			if (!eat(philo) || !sleep_philo(philo)
+				|| !think(philo))
 				return (NULL);
 		}
 		else if (philo->data->state)
-			break ;
+			return (NULL);
 	}
 	return (NULL);
-}
-
-int	is_alive(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->mutex);
-	if (get_time() - philo->last_meal > philo->data->t_die)
-	{
-		philo->data->state = 1;
-		pthread_mutex_unlock(&philo->data->mutex);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->data->mutex);
-	return (1);
 }

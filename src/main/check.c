@@ -6,11 +6,24 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:09:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 16:01:43 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:01:01 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+int	is_alive(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->print);
+	if (get_time() - philo->last_meal > philo->data->t_die)
+	{
+		philo->data->state = 1;
+		pthread_mutex_unlock(&philo->data->print);
+		return (0);
+	}
+	pthread_mutex_unlock(&philo->data->print);
+	return (1);
+}
 
 static int	finished_meals(t_philo *philo)
 {
@@ -63,15 +76,15 @@ void	monitor_philos(t_memory *mem)
 		if (!check_life(mem, &dead_philo))
 		{
 			printf("%s", RED);
-			printf("[%ld] Philo [%d]  %s\n", get_time() - mem->data->start_time,
-				dead_philo + 1, DIED);
+			printf("[%lld] Philo [%d]  %s\n", get_time()
+				- mem->data->start_time, dead_philo + 1, DIED);
 			printf("%s", RESET);
-			break ;
+			return ;
 		}
 		if (!check_meals(mem))
 		{
 			mem->data->state = 2;
-			break ;
+			return ;
 		}
 		usleep(100);
 	}

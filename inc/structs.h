@@ -5,7 +5,7 @@
 
 typedef struct s_data
 {
-	long			start_time;
+	long long		start_time;
 	pthread_mutex_t	*forks_mutexes;
 	int				n_philos;
 	int				t_die;
@@ -13,8 +13,7 @@ typedef struct s_data
 	int				t_sleep;
 	int				ntimes_eat;
 	int				state;
-	pthread_mutex_t	mutex;
-
+	pthread_mutex_t	print;
 	struct s_philo	*philos;
 }					t_data;
 
