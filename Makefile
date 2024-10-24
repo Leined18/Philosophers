@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/22 20:23:04 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/24 15:31:42 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ IFLAGS		:= -I$(INC)
 
 MAIN_FILES := main check
 DATA_FILES := init_data free_data
-ACTIONS_FILES := actions life_cycle
+ACTIONS_FILES := actions actions_utils life_cycle
 UTILS_FILES := utils parse
 THREAD_FILES := thread
 

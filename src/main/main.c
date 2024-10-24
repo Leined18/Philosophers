@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 14:19:13 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:34:25 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	start_simulation(t_memory *mem)
 {
-	if (!create_threads(mem, philo_thread))
+	if (!create_threads(mem, philo_routine))
 		return (ft_error(THREAD_ERROR, mem));
 	monitor_philos(mem);
 	if (!join_threads(mem))

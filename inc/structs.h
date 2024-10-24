@@ -26,6 +26,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
 	pthread_t		thread;
+	long			wait_time;
 }					t_philo;
 
 typedef struct s_memory
