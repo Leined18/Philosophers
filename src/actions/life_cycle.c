@@ -21,6 +21,8 @@ void	*philo_routine(void *arg)
 		return (NULL);
 	if (!philo->data->start_time)
 		philo->data->start_time = get_time();
+	if (one_philo(philo))
+		return (NULL);
 	while (1)
 	{
 		if (!philo->data->state)

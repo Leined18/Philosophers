@@ -6,11 +6,22 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 16:12:07 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:23:29 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "actions.h"
+
+int	one_philo(t_philo *philo)
+{
+	if (philo->data->n_philos > 1)
+		return (0);
+	if (philo->data->n_philos == 1)
+		print_action(philo, YELLOW, R_FORK, 0);
+	smart_sleep(philo->data->t_die, philo);
+	philo->data->state = 1;
+	return (1);
+}
 
 int	lock_forks(t_philo *philo, int n)
 {
