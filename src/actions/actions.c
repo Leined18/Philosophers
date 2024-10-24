@@ -4,23 +4,8 @@ int	take_forks(t_philo *philo)
 {
 	if (philo->data->state)
 		return (0);
-	if ((philo->id % 2))
-	{
-		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK, 0))
-			return (forks_down(philo->left_fork, philo->right_fork, 0));
-		if (!print_action(philo, YELLOW, R_FORK, 0))
-			return (forks_down(philo->left_fork, philo->right_fork, 0));
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		if (!print_action(philo, YELLOW, R_FORK, 0))
-			return (forks_down(philo->left_fork, philo->right_fork, 0));
-		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK, 0))
-			return (forks_down(philo->left_fork, philo->right_fork, 0));
-	}
+	if (!lock_forks(philo, 1))
+		return (0);
 	if (philo->data->state)
 		return (0);
 	return (1);
@@ -31,13 +16,13 @@ int	eat(t_philo *philo)
 	if (!take_forks(philo))
 		return (0);
 	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
-		return (forks_down(philo->left_fork, philo->right_fork, 0));
+		return (unlock_forks(philo, 0));
 	philo->last_meal = get_time();
 	if (philo->meals)
 		philo->meals--;
 	if (philo->id % 2)
-		return (forks_down(philo->left_fork, philo->right_fork, 1));
-	return (forks_down(philo->right_fork, philo->left_fork, 1));
+		return (unlock_forks(philo, 1));
+	return (unlock_forks(philo, 1));
 }
 
 int	sleep_philo(t_philo *philo)
