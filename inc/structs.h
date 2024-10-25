@@ -33,6 +33,7 @@ typedef struct s_memory
 {
 	t_data			*data;
 	t_philo			*philos;
+	void			*mem;
 }					t_memory;
 
 #endif // STRUCTS_H

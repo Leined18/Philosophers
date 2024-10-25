@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/24 15:31:42 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/25 12:37:03 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ THREAD_DIR		:= thread/
 #==========COMMANDS============================================================#
 
 CC			:= gcc
-CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=undefined -pthread
+CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
 RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
@@ -95,7 +95,7 @@ THREAD_FILES := thread
 
 #==========BONUS==FILES========================================================#
 
-BONUS_FILES := main_bonus
+BONUS_FILES := main_bonus clean_bonus init_bonus
 BONUS_DIR := bonus/
 
 #==========FILES==============================================================#
@@ -131,10 +131,10 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 
 $(OBJ_DIR)%.o: $(SRC_DIR)$(BONUS_DIR)%.c Makefile
 	@$(MKDIR) $(dir $@)	
-	@$(CC) $(CFLAGS) $(IFLAGS) -MP -MMD -c $< -o $@
+	@$(CC) $(CFLAGS) -DBONUS $(IFLAGS) -MP -MMD -c $< -o $@
 
 $(BONUS_NAME): $(OBJS_BONUS)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(BONUS_NAME)
+	@$(CC) $(CFLAGS) -DBONUS $(OBJS_BONUS) -o $(BONUS_NAME)
 	@echo "$(BOLD_BLUE)[$(BRIGHT_GREEN)$(BONUS_NAME)$(DEF_COLOR)$(BOLD_BLUE)]$(BOLD_BLUE) compiled!$(DEF_COLOR)"
 	@echo "$(TURQUOISE)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
 

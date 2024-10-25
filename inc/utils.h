@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 14:58:38 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:42:53 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 # define UTILS_H
 
 # include "colors.h"
-# include "structs.h"
+
+# ifdef BONUS
+#  include "structs_bonus.h"
+# else
+#  include "structs.h"
+# endif
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -33,11 +38,7 @@ long long	get_time(void);
 int			create_threads(t_memory *mem, void *(function)(void *));
 int			join_threads(t_memory *mem);
 // Declaraciones de funciones de data
-int			init_mutex(pthread_mutex_t *mutex);
-t_data		*allocate_and_initialize_data(char **av);
-int			init_forks_mutexes(t_data *data);
-t_data		*init_data(int ac, char **av);
-t_philo		*init_philos(t_data *data);
+int			init_memory(t_memory *mem, int ac, char **av);
 
 // Declaraciones de funciones de parse
 void		freedom(void **ptr);

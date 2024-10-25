@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 15:34:25 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:41:44 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ static int	start_simulation(t_memory *mem)
 		return (ft_error(THREAD_JOIN_ERROR, mem));
 	return (ft_success(NULL, NULL));
 }
-
-static int	init_memory(t_memory *mem, int ac, char **av)
-{
-	mem->data = init_data(ac, av);
-	if (!mem->data)
-		return (ft_error(MEMORY_ERROR, mem));
-	mem->philos = init_philos(mem->data);
-	if (!mem->philos)
-		return (ft_error(PHILOS_ERROR, mem));
-	return (ft_success(NULL, NULL));
-}
-
 int	main(int ac, char **av)
 {
 	t_memory	mem;

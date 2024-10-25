@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 14:17:12 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:43:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	init_mutex(pthread_mutex_t *mutex)
+static int	init_mutex(pthread_mutex_t *mutex)
 {
 	if (pthread_mutex_init(mutex, NULL))
 		return (0);
 	return (1);
 }
 
-int	init_forks_mutexes(t_data *data)
+static int	init_forks_mutexes(t_data *data)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int	init_forks_mutexes(t_data *data)
 	return (1);
 }
 
-t_data	*init_data(int ac, char **av)
+static t_data	*init_data(int ac, char **av)
 {
 	t_data	*data;
 
@@ -66,7 +66,7 @@ t_data	*init_data(int ac, char **av)
 	return (data);
 }
 
-t_philo	*init_philos(t_data *data)
+static t_philo	*init_philos(t_data *data)
 {
 	int		i;
 	t_philo	*philos;
@@ -88,4 +88,15 @@ t_philo	*init_philos(t_data *data)
 	}
 	data->philos = philos;
 	return (philos);
+}
+
+int	init_memory(t_memory *mem, int ac, char **av)
+{
+	mem->data = init_data(ac, av);
+	if (!mem->data)
+		return (ft_error(MEMORY_ERROR, mem));
+	mem->philos = init_philos(mem->data);
+	if (!mem->philos)
+		return (ft_error(PHILOS_ERROR, mem));
+	return (ft_success(NULL, NULL));
 }
