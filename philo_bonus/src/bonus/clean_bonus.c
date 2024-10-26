@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/25 12:36:35 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/26 08:36:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define BONUS
-#include "bonus.h"
+#include "bonus_bonus.h"
 
 int	clean_up(t_memory *mem)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:39:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/25 12:48:23 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/26 08:36:40 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define BONUS
-#include "bonus.h"
+#include "bonus_bonus.h"
 
 static int	success(char *msg, t_memory *mem)
 {

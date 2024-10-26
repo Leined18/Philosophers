@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/25 12:42:53 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/26 08:20:14 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 
 # include "colors.h"
 
-# ifdef BONUS
-#  include "structs_bonus.h"
-# else
 #  include "structs.h"
-# endif
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>

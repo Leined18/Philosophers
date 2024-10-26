@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/26 08:17:25 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/26 08:38:50 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,52 +58,71 @@ MOVE_UP     = \033[1A
 
 #==========NAMES===============================================================#
 
-NAME		:= philo
-BONUS_NAME	:= philo_bonus
+BONUS	:= philo_bonus
 
 #==========DIRECTORIES=======================================================#
 
 INC 			:= inc/
 SRC_DIR 		:= src/
 OBJ_DIR 		:= obj/
-PHILO_DIR		:= philo/
-PHILO_BONUS_DIR	:= philo_bonus/
+
+ACTIONS_DIR		:= actions/
+DATA_DIR		:= data/
+UTILS_DIR		:= utils/
+BONUS_DIR 		:= bonus/
 
 
 #==========COMMANDS============================================================#
 
 CC			:= gcc
 CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
-RM			:= rm -f
+RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
 MKDIR 		:= mkdir -p
 IFLAGS		:= -I$(INC)
 
+
+#==========SOURCES=BONUS============================================================#
+
+DATA_FILES := 
+ACTIONS_FILES := 
+UTILS_FILES := parse utils
+BONUS_FILES := main_bonus clean_bonus init_bonus
+
+#==========FILES==============================================================#
+
+SRC_FILES_BONUS+=$(addprefix $(BONUS_DIR), $(BONUS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(DATA_DIR), $(DATA_FILES))
+SRC_FILES_BONUS+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+
+SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))
+OBJS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES_BONUS)))
+DEPS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES_BONUS)))
+
 #==========RULES==============================================================#
 
-all: $(NAME)
+all: bonus
 
-bonus: $(BONUS_NAME)
+bonus: $(BONUS)
 
-$(NAME): 
-	@$(MAKE) -sC $(PHILO_DIR)
-	@cp $(PHILO_DIR)$(NAME) .
-	
-$(BONUS_NAME):
-	@$(MAKE) -sC $(PHILO_BONUS_DIR)
-	@cp $(PHILO_BONUS_DIR)$(BONUS_NAME) .
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
+	@$(MKDIR) $(dir $@)	
+	@$(CC) $(CFLAGS) $(IFLAGS) -MP -MMD -c $< -o $@
+
+$(BONUS): $(OBJS_BONUS)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(BONUS)
+	@echo "$(BOLD_BLUE)[$(BRIGHT_GREEN)$(BONUS)$(DEF_COLOR)$(BOLD_BLUE)]$(BOLD_BLUE) compiled!$(DEF_COLOR)"
+	@echo "$(TURQUOISE)------------\n| Done! 👌 |\n------------$(DEF_COLOR)"
 
 clean:
-	@$(MAKE) -sC $(PHILO_DIR) clean
-	@$(MAKE) -sC $(PHILO_BONUS_DIR) clean
-	@echo "$(CYAN)[$(NAME)]:\tobject files $(GREEN) => Cleaned!$(DEF_COLOR)"
+	@$(RM) -rf $(OBJ_DIR)
+	@echo "$(CYAN)[$(BONUS)]:\tobject files $(GREEN) => Cleaned!$(DEF_COLOR)"
 
 fclean: clean
-	@$(RM) $(NAME) $(BONUS_NAME)
-	@$(MAKE) -sC $(PHILO_DIR) fclean
-	@$(MAKE) -sC $(PHILO_BONUS_DIR) fclean
-	@echo "$(CYAN)[$(NAME)]:\texec. files $(GREEN) => Cleaned!$(DEF_COLOR)"
+	@$(RM) -rf $(BONUS)
+	@echo "$(CYAN)[$(BONUS)]:\texec. files $(GREEN) => Cleaned!$(DEF_COLOR)"
 	
 
 re: fclean all

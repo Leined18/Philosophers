@@ -1,7 +1,7 @@
 #ifndef BONUS_H
 # define BONUS_H
 
-# include "utils.h"
+# include "utils_bonus.h"
 
 // clean_bonus.c
 int	clean_up(t_memory *mem);
