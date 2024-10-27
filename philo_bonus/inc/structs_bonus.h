@@ -1,24 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/27 18:23:16 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_BONUS_H
 # define STRUCTS_BONUS_H
 
-typedef struct philo
-{
-	int		id;
-	int		*forks;
-}			t_philo;
+# include "utils_bonus.h"
+# include <semaphore.h>
+
+struct s_philo;
 
 typedef struct s_data
 {
-	int		n;
-	int		*forks;
-}			t_data;
+	pid_t			*pid;
+	int 			dead_philo;
+	long long		start_time;
+	int				n_philos;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				n_eat;
+	int				state;
+	sem_t			*forks;
+	sem_t			*print;
+	struct s_philo	*philos;
+}					t_data;
+
+typedef struct s_philo
+{
+	pid_t			pid;
+	int				id;
+	int				meals;
+	long			last_meal;
+	t_data			*data;
+	sem_t			*right_fork;
+	sem_t			*left_fork;
+	pthread_t		thread;
+}					t_philo;
 
 typedef struct s_memory
 {
-	t_data	*data;
-	t_philo	*philos;
-	int		ac;
-	char	**av;
-}			t_memory;
+	t_data			*data;
+	t_philo			*philos;
+	int				ac;
+	char			**av;
+}					t_memory;
 
 #endif // STRUCTS_BONUS_H

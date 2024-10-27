@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"utils_bonus.h": "c",
+		"bonus_bonus.h": "c",
+		"unistd.h": "c",
+		"structs_bonus.h": "c",
+		"actions_bonus.h": "c",
+		"colors_bonus.h": "c"
+	}
+}

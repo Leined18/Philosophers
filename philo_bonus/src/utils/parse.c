@@ -6,11 +6,36 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/26 08:39:42 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:30:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+
+int	success(char *msg, t_memory *mem)
+{
+	if (msg && *msg)
+	{
+		printf("%s", GREEN);
+		printf("%s", msg);
+		printf("%s", RESET);
+	}
+	if (mem)
+		clean_up(mem);
+	return (1);
+}
+int	error(char *msg, t_memory *mem)
+{
+	if (msg && *msg)
+	{
+		printf("%s", RED);
+		printf("%s", msg);
+		printf("%s", RESET);
+	}
+	if (mem)
+		clean_up(mem);
+	return (0);
+}
 
 int	valid_args(int ac, char **av)
 {

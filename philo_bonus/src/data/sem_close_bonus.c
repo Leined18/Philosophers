@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_bonus.c                                      :+:      :+:    :+:   */
+/*   sem_close_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:35:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/26 08:36:35 by danpalac         ###   ########.fr       */
+/*   Created: 2024/10/27 14:44:47 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/27 17:56:37 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_bonus.h"
+#include "utils_bonus.h"
 
-int	clean_up(t_memory *mem)
+int	close_semaphores(t_data *data)
 {
-	if (mem->data)
+	int	i;
+
+	i = 0;
+	while (i < data->n_philos)
 	{
-		free(mem->data);
-		mem->data = NULL;
+		sem_close(&data->forks[i]);
+		sem_close(&data->print[i]);
+		i++;
 	}
-	if (mem->philos)
-	{
-		free(mem->philos);
-		mem->philos = NULL;
-	}
-	return (0);
+	sem_unlink("forks");
+	sem_unlink("print");
+	return (1);
 }

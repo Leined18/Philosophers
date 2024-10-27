@@ -1,12 +1,12 @@
 #ifndef BONUS_H
 # define BONUS_H
 
+# include "colors_bonus.h"
 # include "utils_bonus.h"
+# include "structs_bonus.h"
+# include "actions_bonus.h"
 
-// clean_bonus.c
-int	clean_up(t_memory *mem);
+void	*monitor_philos(void *arg);
 
-// init_bonus.c
-int init_mem(t_memory *mem);
 
 #endif // BONUS_H

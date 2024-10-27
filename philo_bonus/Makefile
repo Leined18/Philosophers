@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/26 08:38:50 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/27 16:41:54 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,10 +85,10 @@ IFLAGS		:= -I$(INC)
 
 #==========SOURCES=BONUS============================================================#
 
-DATA_FILES := 
-ACTIONS_FILES := 
+DATA_FILES := clean_bonus sem_close_bonus init_bonus
+ACTIONS_FILES := actions_bonus actions_utils_bonus
 UTILS_FILES := parse utils
-BONUS_FILES := main_bonus clean_bonus init_bonus
+BONUS_FILES := main_bonus check_bonus
 
 #==========FILES==============================================================#
 

@@ -6,11 +6,22 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/26 08:39:14 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:11:52 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+
+t_memory	*get_mem(t_memory *mem, int y)
+{
+	static t_memory	*memory = NULL;
+
+	if (mem)
+		memory = mem;
+	if (y)
+		return (memory);
+	return (NULL);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -40,13 +51,12 @@ void	smart_sleep(long time_in_ms, t_philo *philo)
 
 	start_time = get_time();
 	elapsed_time = 0;
-	(void)philo;
 	while (1)
 	{
 		elapsed_time = get_time() - start_time;
-		if (elapsed_time >= time_in_ms)
+		if (elapsed_time >= time_in_ms || philo->data->state)
 			return ;
-		usleep(50);
+		usleep(100);
 	}
 }
 
