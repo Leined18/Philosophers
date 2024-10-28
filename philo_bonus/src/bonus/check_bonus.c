@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:36:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 19:04:28 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:30:32 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus_bonus.h"
 
-static int	is_alive(t_philo *philo)
+int	is_alive(t_philo *philo)
 {
 	if (get_time() - philo->last_meal > philo->data->t_die)
 	{
@@ -22,12 +22,12 @@ static int	is_alive(t_philo *philo)
 	return (1);
 }
 
-static int	finished_meals(t_philo *philo)
+int	finished_meals(t_philo *philo)
 {
 	return (philo->meals <= 0);
 }
 
-static int	check_life(t_data *data, int *dead_philo)
+int	check_life(t_data *data, int *dead_philo)
 {
 	int	ph;
 
@@ -44,7 +44,7 @@ static int	check_life(t_data *data, int *dead_philo)
 	return (1);
 }
 
-static int	check_meals(t_data *data)
+int	check_meals(t_data *data)
 {
 	int	ph;
 	int	meals_remaining;
@@ -62,26 +62,15 @@ static int	check_meals(t_data *data)
 	return (meals_remaining);
 }
 
-void	*monitor_philos(void *arg)
+int check_status(t_data *data)
 {
-	int		dead_philo;
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (1)
-	{
-		philo->data->state = 1;
-		if (!check_life(philo->data, &dead_philo))
-		{
-			kill(getppid(), SIGUSR1);
-			break;
-		}
-		if (!check_meals(philo->data))
-		{
-			kill(getppid(), SIGUSR2);
-			break;
-		}
-		usleep(100);
-	}
-	return (NULL);
+    if (data->state == 2)
+    {
+        printf("%s", MEALS_FINISHED);
+        return (1);
+    }
+    else if (data->state == 1)
+        return (1);
+    return (0);
 }
+

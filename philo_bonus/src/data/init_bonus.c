@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 17:18:59 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/28 08:48:06 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	init_data(t_data **data, char **av)
 	(*data)->pid = malloc(sizeof(pid_t) * ft_atoi(av[1]));
 	if (!(*data)->pid)
 		return (0);
+    memset((*data)->pid, 0, sizeof(pid_t) * ft_atoi(av[1]));
 	if (!init_semaphores(*data))
 		return (0);
 	(*data)->n_philos = ft_atoi(av[1]);

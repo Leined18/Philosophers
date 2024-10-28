@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 18:12:05 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:01:40 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include "actions_bonus.h"
+# include "bonus_bonus.h"
 # include "colors_bonus.h"
 # include "structs_bonus.h"
 # include <fcntl.h>
@@ -31,27 +32,22 @@
 # include <time.h>
 # include <unistd.h>
 
-// Declaraciones de funciones de acciones
-
 // Declaraciones de funciones utilitarias
 int			ft_atoi(const char *str);
 void		smart_sleep(long time_in_ms, t_philo *philo);
 long long	get_time(void);
 t_memory	*get_mem(t_memory *mem, int y);
 
-// Declaraciones de funciones de data
-int			init_mem(t_memory *mem);
-int			clean_up(t_memory *mem);
-
-// Declaraciones de funciones de sem
-int			sem_unlink_error(char *name);
-int			sem_close_error(sem_t *sem);
-int			close_semaphores(t_data *data);
-
 // Declaraciones de funciones de parse
 int			valid_args(int ac, char **av);
 int			success(char *msg, t_memory *mem);
 int			error(char *msg, t_memory *mem);
+
+// Declaraciones de funciones de signals
+void		handle_signal(int sig);
+void		handle_signal_parent(int sig);
+void		handle_signal_child(int sig);
+void		set_signals(void(funtion)(int sig));
 
 // Definiciones de mensajes
 # define SUCCESS "\033[1;32m✅ Success: Funtion finished well!\n\033[0m" // Verde

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/27 16:41:54 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/28 09:14:58 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ ACTIONS_DIR		:= actions/
 DATA_DIR		:= data/
 UTILS_DIR		:= utils/
 BONUS_DIR 		:= bonus/
+THREAD_DIR		:= thread/
+CHILD_DIR		:= child/
 
 
 #==========COMMANDS============================================================#
@@ -85,10 +87,12 @@ IFLAGS		:= -I$(INC)
 
 #==========SOURCES=BONUS============================================================#
 
-DATA_FILES := clean_bonus sem_close_bonus init_bonus
+DATA_FILES := clean_bonus init_bonus
 ACTIONS_FILES := actions_bonus actions_utils_bonus
-UTILS_FILES := parse utils
+UTILS_FILES := parse_bonus utils_bonus signals_bonus
 BONUS_FILES := main_bonus check_bonus
+THREAD_FILES := thread_bonus
+CHILD_FILES := child_bonus
 
 #==========FILES==============================================================#
 
@@ -96,6 +100,8 @@ SRC_FILES_BONUS+=$(addprefix $(BONUS_DIR), $(BONUS_FILES))
 SRC_FILES_BONUS+=$(addprefix $(DATA_DIR), $(DATA_FILES))
 SRC_FILES_BONUS+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
 SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(THREAD_DIR), $(THREAD_FILES))
+SRC_FILES_BONUS+=$(addprefix $(CHILD_DIR), $(CHILD_FILES))
 
 SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))
 OBJS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES_BONUS)))

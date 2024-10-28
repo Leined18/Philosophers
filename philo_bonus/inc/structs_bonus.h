@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 18:23:16 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:00:28 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <semaphore.h>
 
 struct s_philo;
+
+typedef struct s_state;
+{
+    int		state;
+    sem_t	*mutex;
+}					t_state;
 
 typedef struct s_data
 {
@@ -48,6 +54,7 @@ typedef struct s_philo
 
 typedef struct s_memory
 {
+    pid_t            pid;
 	t_data			*data;
 	t_philo			*philos;
 	int				ac;
