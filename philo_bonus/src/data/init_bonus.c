@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/28 08:48:06 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:57:41 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils_bonus.h"
+#include "data_bonus.h"
 
 static int	init_semaphores(t_data *data)
 {
@@ -32,7 +32,7 @@ static int	init_data(t_data **data, char **av)
 	(*data)->pid = malloc(sizeof(pid_t) * ft_atoi(av[1]));
 	if (!(*data)->pid)
 		return (0);
-    memset((*data)->pid, 0, sizeof(pid_t) * ft_atoi(av[1]));
+	memset((*data)->pid, 0, sizeof(pid_t) * ft_atoi(av[1]));
 	if (!init_semaphores(*data))
 		return (0);
 	(*data)->n_philos = ft_atoi(av[1]);
@@ -66,12 +66,15 @@ static int	init_philos(t_philo **philos, t_data *data)
 	return (1);
 }
 
-int	init_mem(t_memory *mem)
+int	init_mem(t_memory *mem, int ac, char **av)
 {
+	mem->ac = ac;
+	mem->av = av;
 	if (!init_data(&mem->data, mem->av))
 		return (0);
 	if (!init_philos(&mem->philos, mem->data))
 		return (0);
 	mem->data->philos = (t_philo *)mem->philos;
+	get_mem(&mem, FALSE);
 	return (1);
 }

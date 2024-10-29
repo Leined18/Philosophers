@@ -6,28 +6,26 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/28 10:00:28 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:01:17 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_BONUS_H
 # define STRUCTS_BONUS_H
 
-# include "utils_bonus.h"
-# include <semaphore.h>
+# include "config_bonus.h"
 
-struct s_philo;
-
-typedef struct s_state;
+struct	s_philo;
+typedef struct s_state
 {
-    int		state;
-    sem_t	*mutex;
+	int				state;
+	sem_t			*mutex;
 }					t_state;
 
 typedef struct s_data
 {
 	pid_t			*pid;
-	int 			dead_philo;
+	int				dead_philo;
 	long long		start_time;
 	int				n_philos;
 	int				t_die;
@@ -54,7 +52,7 @@ typedef struct s_philo
 
 typedef struct s_memory
 {
-    pid_t            pid;
+	pid_t			pid;
 	t_data			*data;
 	t_philo			*philos;
 	int				ac;

@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/28 09:14:58 by danpalac         ###   ########.fr        #
+#    Updated: 2024/10/29 10:29:18 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,41 +67,51 @@ SRC_DIR 		:= src/
 OBJ_DIR 		:= obj/
 
 ACTIONS_DIR		:= actions/
-DATA_DIR		:= data/
-UTILS_DIR		:= utils/
-BONUS_DIR 		:= bonus/
-THREAD_DIR		:= thread/
+BONUS_DIR		:= bonus/
 CHILD_DIR		:= child/
-
+DATA_DIR		:= data/
+PHILO 		 	:= philo/
+SIGNALS 		:= signals/
+STATE_DIR		:= state/
+SYNC_DIR		:= sync/
+THREAD_DIR		:= thread/
+UTILS_DIR		:= utils/
 
 #==========COMMANDS============================================================#
 
 CC			:= gcc
-CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
+CFLAGS		:= -Wall -Wextra -Werror -pthread -fsanitize=address -g3
 RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
 MKDIR 		:= mkdir -p
-IFLAGS		:= -I$(INC)
-
+IFLAGS		:= -I$(INC) -I$(SRC_DIR)$(ACTIONS_DIR) -I$(SRC_DIR)$(BONUS_DIR) -I$(SRC_DIR)$(CHILD_DIR) -I$(SRC_DIR)$(DATA_DIR) -I$(SRC_DIR)$(PHILO) -I$(SRC_DIR)$(SIGNALS) -I$(SRC_DIR)$(STATE_DIR) -I$(SRC_DIR)$(SYNC_DIR) -I$(SRC_DIR)$(THREAD_DIR) -I$(SRC_DIR)$(UTILS_DIR)
 
 #==========SOURCES=BONUS============================================================#
 
-DATA_FILES := clean_bonus init_bonus
 ACTIONS_FILES := actions_bonus actions_utils_bonus
-UTILS_FILES := parse_bonus utils_bonus signals_bonus
 BONUS_FILES := main_bonus check_bonus
-THREAD_FILES := thread_bonus
 CHILD_FILES := child_bonus
+DATA_FILES := clean_bonus init_bonus
+PHILO_FILES := philo_bonus
+SIGNALS_FILES := handle_signals_bonus set_signals_bonus
+STATE_FILES := 
+SYNC_FILES := 
+THREAD_FILES := thread_bonus
+UTILS_FILES := parse_bonus utils_bonus
 
 #==========FILES==============================================================#
 
-SRC_FILES_BONUS+=$(addprefix $(BONUS_DIR), $(BONUS_FILES))
-SRC_FILES_BONUS+=$(addprefix $(DATA_DIR), $(DATA_FILES))
 SRC_FILES_BONUS+=$(addprefix $(ACTIONS_DIR), $(ACTIONS_FILES))
-SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
-SRC_FILES_BONUS+=$(addprefix $(THREAD_DIR), $(THREAD_FILES))
+SRC_FILES_BONUS+=$(addprefix $(BONUS_DIR), $(BONUS_FILES))
 SRC_FILES_BONUS+=$(addprefix $(CHILD_DIR), $(CHILD_FILES))
+SRC_FILES_BONUS+=$(addprefix $(DATA_DIR), $(DATA_FILES))
+SRC_FILES_BONUS+=$(addprefix $(PHILO), $(PHILO_FILES))
+SRC_FILES_BONUS+=$(addprefix $(SIGNALS), $(SIGNALS_FILES))
+SRC_FILES_BONUS+=$(addprefix $(STATE_DIR), $(STATE_FILES))
+SRC_FILES_BONUS+=$(addprefix $(SYNC_DIR), $(SYNC_FILES))
+SRC_FILES_BONUS+=$(addprefix $(THREAD_DIR), $(THREAD_FILES))
+SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))
 OBJS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES_BONUS)))
@@ -129,7 +139,6 @@ clean:
 fclean: clean
 	@$(RM) -rf $(BONUS)
 	@echo "$(CYAN)[$(BONUS)]:\texec. files $(GREEN) => Cleaned!$(DEF_COLOR)"
-	
 
 re: fclean all
 

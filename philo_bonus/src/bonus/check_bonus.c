@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:36:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/28 09:30:32 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:59:15 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,14 @@ int	check_meals(t_data *data)
 	return (meals_remaining);
 }
 
-int check_status(t_data *data)
+int	check_status(t_data *data)
 {
-    if (data->state == 2)
-    {
-        printf("%s", MEALS_FINISHED);
-        return (1);
-    }
-    else if (data->state == 1)
-        return (1);
-    return (0);
+	if (data->state == 2)
+	{
+		printf("%s", MEALS_FINISHED);
+		return (1);
+	}
+	else if (data->state == 1)
+		return (1);
+	return (0);
 }
-

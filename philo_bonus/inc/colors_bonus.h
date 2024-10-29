@@ -1,5 +1,17 @@
-#ifndef COLORS_H
-# define COLORS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors_bonus.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/29 10:00:03 by danpalac          #+#    #+#             */
+/*   Updated: 2024/10/29 10:00:04 by danpalac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef COLORS_BONUS_H
+# define COLORS_BONUS_H
 
 // Definiciones de colores para imprimir en la terminal
 # define PURPLE "\033[0;35m"

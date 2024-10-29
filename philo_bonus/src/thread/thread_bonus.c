@@ -6,11 +6,11 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:05:57 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/28 09:56:12 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:29:04 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils_bonus.h"
+#include "thread_bonus.h"
 
 void	*monitor_philos(void *arg)
 {

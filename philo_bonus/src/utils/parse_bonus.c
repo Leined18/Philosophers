@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 14:30:31 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:57:29 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	success(char *msg, t_memory *mem)
 		clean_up(mem);
 	return (1);
 }
+
 int	error(char *msg, t_memory *mem)
 {
 	if (msg && *msg)
