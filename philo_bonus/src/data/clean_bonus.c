@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 14:57:31 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:35:25 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+
+int	close_semaphores(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philos)
+	{
+		sem_close(&data->forks[i]);
+		sem_close(&data->print[i]);
+		i++;
+	}
+	sem_unlink("forks");
+	sem_unlink("print");
+	return (1);
+}
 
 int	clean_up(t_memory *mem)
 {
