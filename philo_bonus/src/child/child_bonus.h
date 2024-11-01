@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:27:03 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 10:33:43 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 10:48:48 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 // Declare any functions or classes here
 // child process
 void	run_philosopher(t_philo *philo);
-int		init_children(t_memory **mem);
+int		init_children(t_memory *mem);
 
 #endif // CHILD_BONUS_H

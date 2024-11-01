@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 10:35:25 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:00:56 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	clean_up(t_memory *mem)
 		free(mem->data);
 		mem->data = NULL;
 	}
-	if (mem->philos)
+	if (mem->philo)
 	{
-		free(mem->philos);
-		mem->philos = NULL;
+		free(mem->philo);
+		mem->philo = NULL;
 	}
 	return (0);
 }

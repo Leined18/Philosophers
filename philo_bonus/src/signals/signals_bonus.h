@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:55:21 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:55:22 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:59:25 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@
 // Declaraciones de funciones de signals
 
 // handle_signals_bonus.c
-void	handle_signal(int signal, siginfo_t *info, void *context);
-void	handle_signal_parent(int sig);
-void	handle_signal_child(int sig);
-// set_signals_bonus.c
-void	set_signals(void (funtion)(int sig));
-void	setup_signal_handler(void);
+void	sig_ch(int sig);
+void	sig_ph(int sig);
+	// signals_utils_bonus.c
+	void set_signals(void(funtion)(int sig));
+void	setup_signal_handler(void (*signal_handler)(int signal, siginfo_t *info,
+				void *context));
+int		send_signal(int signal, int pid);
+int		signal_broadcast(int signal, t_memory *memory);
 
 #endif // SIGNALS_BONUS_H

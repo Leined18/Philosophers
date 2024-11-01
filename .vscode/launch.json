@@ -2,14 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
+      "name": "mydgb",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["1", "800", "200", "200"],
+      "args": ["2", "800", "200", "200"],
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "${workspaceFolder}",
-      "program": "${workspaceFolder}/philo",
+      "program": "${workspaceFolder}/philo_bonus/philo_bonus",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
@@ -19,7 +19,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "Build with make"
+      "preLaunchTask": "Build",
     }
   ]
 }

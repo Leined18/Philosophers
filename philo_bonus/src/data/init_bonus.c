@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:57:41 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:56:58 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
 
-static int	init_semaphores(t_data *data)
+static int	init_semaphores(t_data **data)
 {
-	data->forks = sem_open("forks", O_CREAT, 0644, data->n_philos);
-	if (data->forks == SEM_FAILED)
+	(*data)->forks = sem_open("forks", O_CREAT, 0644, (*data)->n_philos);
+	if ((*data)->forks == SEM_FAILED)
 		return (0);
-	data->print = sem_open("print", O_CREAT, 0644, data->n_philos);
-	if (data->print == SEM_FAILED)
+	(*data)->print = sem_open("print", O_CREAT, 0644, (*data)->n_philos);
+	if ((*data)->print == SEM_FAILED)
 		return (0);
 	return (1);
 }
@@ -33,8 +33,6 @@ static int	init_data(t_data **data, char **av)
 	if (!(*data)->pid)
 		return (0);
 	memset((*data)->pid, 0, sizeof(pid_t) * ft_atoi(av[1]));
-	if (!init_semaphores(*data))
-		return (0);
 	(*data)->n_philos = ft_atoi(av[1]);
 	(*data)->t_die = ft_atoi(av[2]);
 	(*data)->t_eat = ft_atoi(av[3]);
@@ -70,11 +68,14 @@ int	init_mem(t_memory *mem, int ac, char **av)
 {
 	mem->ac = ac;
 	mem->av = av;
+	mem->ppid = getpid();
 	if (!init_data(&mem->data, mem->av))
 		return (0);
-	if (!init_philos(&mem->philos, mem->data))
+	if (!init_semaphores(&mem->data))
 		return (0);
-	mem->data->philos = (t_philo *)mem->philos;
+	if (!init_philos(&mem->philo, mem->data))
+		return (0);
+	mem->data->philo = (t_philo *)mem->philo;
 	get_mem(&mem, FALSE);
 	return (1);
 }

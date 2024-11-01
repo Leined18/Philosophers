@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:25:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/27 17:50:55 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:23:41 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	take_forks(t_philo *philo)
 {
-	if (philo->data->state)
-		return (0);
 	if (philo->id % 2)
 	{
 		if (!fork_up(philo, philo->left_fork, L_FORK))
@@ -30,8 +28,6 @@ int	take_forks(t_philo *philo)
 		if (!fork_up(philo, philo->left_fork, L_FORK))
 			return (0);
 	}
-	if (philo->data->state)
-		return (0);
 	return (1);
 }
 
@@ -68,8 +64,6 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 {
 	long long	time_elapsed;
 
-	if (philo->data->state)
-		return (0);
 	sem_wait(philo->data->print);
 	time_elapsed = get_time() - philo->data->start_time;
 	printf("%s[%s%2lld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);

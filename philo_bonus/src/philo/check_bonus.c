@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:36:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:59:15 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:45:23 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_bonus.h"
+#include "philo_bonus.h"
 
 int	is_alive(t_philo *philo)
 {
@@ -34,7 +34,7 @@ int	check_life(t_data *data, int *dead_philo)
 	ph = 0;
 	while (ph < data->n_philos)
 	{
-		if (!is_alive(&data->philos[ph]))
+		if (!is_alive(&data->philo[ph]))
 		{
 			*dead_philo = ph;
 			return (0);
@@ -55,7 +55,7 @@ int	check_meals(t_data *data)
 	meals_remaining = data->n_philos;
 	while (ph < data->n_philos)
 	{
-		if (finished_meals(&data->philos[ph]))
+		if (finished_meals(&data->philo[ph]))
 			meals_remaining--;
 		ph++;
 	}
@@ -65,10 +65,7 @@ int	check_meals(t_data *data)
 int	check_status(t_data *data)
 {
 	if (data->state == 2)
-	{
-		printf("%s", MEALS_FINISHED);
 		return (1);
-	}
 	else if (data->state == 1)
 		return (1);
 	return (0);

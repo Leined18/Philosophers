@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+         #
+#    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/29 10:29:18 by danpalac         ###   ########.fr        #
+#    Updated: 2024/11/01 13:54:59 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,6 @@ SRC_DIR 		:= src/
 OBJ_DIR 		:= obj/
 
 ACTIONS_DIR		:= actions/
-BONUS_DIR		:= bonus/
 CHILD_DIR		:= child/
 DATA_DIR		:= data/
 PHILO 		 	:= philo/
@@ -85,20 +84,20 @@ RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib
 MKDIR 		:= mkdir -p
-IFLAGS		:= -I$(INC) -I$(SRC_DIR)$(ACTIONS_DIR) -I$(SRC_DIR)$(BONUS_DIR) -I$(SRC_DIR)$(CHILD_DIR) -I$(SRC_DIR)$(DATA_DIR) -I$(SRC_DIR)$(PHILO) -I$(SRC_DIR)$(SIGNALS) -I$(SRC_DIR)$(STATE_DIR) -I$(SRC_DIR)$(SYNC_DIR) -I$(SRC_DIR)$(THREAD_DIR) -I$(SRC_DIR)$(UTILS_DIR)
+IFLAGS		:= -I$(INC) -I$(SRC_DIR)$(ACTIONS_DIR) -I$(SRC_DIR)$(CHILD_DIR) -I$(SRC_DIR)$(DATA_DIR) -I$(SRC_DIR)$(PHILO) -I$(SRC_DIR)$(SIGNALS) -I$(SRC_DIR)$(STATE_DIR) -I$(SRC_DIR)$(SYNC_DIR) -I$(SRC_DIR)$(THREAD_DIR) -I$(SRC_DIR)$(UTILS_DIR)
 
 #==========SOURCES=BONUS============================================================#
 
 ACTIONS_FILES := actions_bonus actions_utils_bonus
-BONUS_FILES := main_bonus check_bonus
 CHILD_FILES := child_bonus
 DATA_FILES := clean_bonus init_bonus
-PHILO_FILES := philo_bonus
-SIGNALS_FILES := handle_signals_bonus set_signals_bonus
+PHILO_FILES := check_bonus philo_utils_bonus
+SIGNALS_FILES := handle_signals_bonus signals_utils_bonus
 STATE_FILES := 
 SYNC_FILES := 
 THREAD_FILES := thread_bonus
 UTILS_FILES := parse_bonus utils_bonus
+MAIN_FILES := main_bonus
 
 #==========FILES==============================================================#
 
@@ -112,6 +111,7 @@ SRC_FILES_BONUS+=$(addprefix $(STATE_DIR), $(STATE_FILES))
 SRC_FILES_BONUS+=$(addprefix $(SYNC_DIR), $(SYNC_FILES))
 SRC_FILES_BONUS+=$(addprefix $(THREAD_DIR), $(THREAD_FILES))
 SRC_FILES_BONUS+=$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+SRC_FILES_BONUS+=$(MAIN_FILES)
 
 SRCS_BONUS := $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES_BONUS)))
 OBJS_BONUS := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES_BONUS)))

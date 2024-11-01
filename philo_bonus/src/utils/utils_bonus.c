@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:21:54 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:23:06 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+
+pid_t	fork_process(void child_func(void *), void *info)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+		child_func(info);
+	return (pid);
+}
 
 t_memory	*get_mem(t_memory **mem, int y)
 {

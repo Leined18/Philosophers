@@ -3,49 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:36:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:54:29 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:43:45 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals_bonus.h"
 
-void	handle_signal_parent(int sig)
-{
-	t_memory	*mem;
-	t_data		*data;
-	int			i;
+// SIGUSR1: signal to start the simulation
+// SIGUSR2: signal to stop the simulation
+// SIGKILL: signal to kill the simulation
+// SIGCHLD: signal to stop the simulation
+// SIGTERM: signal to stop the simulation
 
-	mem = get_mem(NULL, 1);
-	data = mem->data;
-	i = 0;
+void	sig_ph(int sig)
+{
+	t_memory	*memory;
+
+	memory = get_mem(NULL, 1);
 	if (sig == SIGUSR1)
-	{
-		data->state = 1;
-		while (i < data->n_philos)
-			kill(data->pid[i++], SIGKILL);
-	}
+		signal_broadcast(SIGUSR1, memory);
 	else if (sig == SIGUSR2)
-	{
-		kill(data->pid[0], SIGUSR2);
-		data->state = 2;
-	}
+		signal_broadcast(SIGUSR2, memory);
+	else if (sig == SIGKILL || sig == SIGINT)
+		signal_broadcast(SIGKILL, memory);
+	else if (sig == SIGCHLD)
+		signal_broadcast(SIGCHLD, memory);
+	else if (sig == SIGTERM)
+		signal_broadcast(SIGTERM, memory);
 }
 
-void	handle_signal_child(int sig)
+void	sig_ch(int sig)
 {
 	if (sig == SIGUSR1)
-		exit(0);
-}
-
-void	handle_signal(int signal, siginfo_t *info, void *context)
-{
-	(void)context;
-	(void)info;
-	if (signal == SIGUSR1)
 	{
-		printf("Signal received from %d\n", info->si_pid);
+	}
+	if (sig == SIGUSR2 || sig == SIGKILL || sig == SIGINT || sig == SIGCHLD || sig == SIGTERM)
+	{
+		exit(0);
 	}
 }

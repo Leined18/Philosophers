@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 10:01:17 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:56:23 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 # include "config_bonus.h"
 
 struct	s_philo;
-typedef struct s_state
-{
-	int				state;
-	sem_t			*mutex;
-}					t_state;
 
 typedef struct s_data
 {
@@ -35,7 +30,7 @@ typedef struct s_data
 	int				state;
 	sem_t			*forks;
 	sem_t			*print;
-	struct s_philo	*philos;
+	struct s_philo	*philo;
 }					t_data;
 
 typedef struct s_philo
@@ -52,9 +47,9 @@ typedef struct s_philo
 
 typedef struct s_memory
 {
-	pid_t			pid;
+	pid_t			ppid;
 	t_data			*data;
-	t_philo			*philos;
+	t_philo			*philo;
 	int				ac;
 	char			**av;
 }					t_memory;
