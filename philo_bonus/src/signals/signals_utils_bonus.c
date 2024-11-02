@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:57:58 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/01 14:33:51 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:33:25 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,8 @@ void	set_signals(void(funtion)(int sig))
 	signal(SIGUSR2, funtion);
 	signal(SIGINT, funtion);
 	signal(SIGTERM, funtion);
-	signal(SIGQUIT, funtion);
-	signal(SIGKILL, funtion);
-	signal(SIGSTOP, funtion);
-	signal(SIGCONT, funtion);
 	signal(SIGCHLD, funtion);
-	signal(SIGTSTP, funtion);
-	signal(SIGTTIN, funtion);
-	signal(SIGTTOU, funtion);
-	signal(SIGURG, funtion);
-	signal(SIGXCPU, funtion);
-	signal(SIGXFSZ, funtion);
-	signal(SIGVTALRM, funtion);
+	signal(SIGKILL, funtion);
 }
 
 int	send_signal(int signal, int pid)
