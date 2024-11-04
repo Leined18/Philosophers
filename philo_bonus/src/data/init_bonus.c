@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/01 13:56:58 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:58:53 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@ static int	init_semaphores(t_data **data)
 	(*data)->forks = sem_open("forks", O_CREAT, 0644, (*data)->n_philos);
 	if ((*data)->forks == SEM_FAILED)
 		return (0);
-	(*data)->print = sem_open("print", O_CREAT, 0644, (*data)->n_philos);
-	if ((*data)->print == SEM_FAILED)
+	(*data)->print_sem = sem_open("print_sem", O_CREAT, 0644, 1);
+	if ((*data)->print_sem == SEM_FAILED)
+		return (0);
+	(*data)->dead_sem = sem_open("dead_sem", O_CREAT, 0644, 1);
+	if ((*data)->dead_sem == SEM_FAILED)
+		return (0);
+	(*data)->eat_sem = sem_open("eat_sem", O_CREAT, 0644, 1);
+	if ((*data)->eat_sem == SEM_FAILED)
 		return (0);
 	return (1);
 }
@@ -39,6 +45,9 @@ static int	init_data(t_data **data, char **av)
 	(*data)->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		(*data)->n_eat = ft_atoi(av[5]);
+	else 
+		(*data)->n_eat = -1;
+	(*data)->start_time = get_time();
 	return (1);
 }
 

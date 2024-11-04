@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:25:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/01 12:23:41 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:28:11 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int	eat(t_philo *philo)
 {
 	if (!take_forks(philo))
 		return (0);
+	sem_wait(philo->data->eat_sem);
+	philo->last_meal = get_time();
+	sem_post(philo->data->eat_sem);
 	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
 		return (0);
-	philo->last_meal = get_time();
+	if (!is_alive(philo->data))
+		return (0);
 	if (philo->meals)
 		philo->meals--;
 	if (philo->id % 2)
@@ -64,15 +68,15 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 {
 	long long	time_elapsed;
 
-	sem_wait(philo->data->print);
+	sem_wait(philo->data->print_sem);
 	time_elapsed = get_time() - philo->data->start_time;
 	printf("%s[%s%2lld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);
 	printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, philo->id, RESET,
 		BOLD_BLUE);
 	printf(" %s%s\n", color, action);
 	printf(RESET);
-	sem_post(philo->data->print);
+	sem_post(philo->data->print_sem);
 	if (wait_time > 0)
-		smart_sleep(wait_time, philo);
+		smart_sleep(wait_time);
 	return (1);
 }

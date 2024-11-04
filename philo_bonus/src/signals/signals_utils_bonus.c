@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:57:58 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/02 15:33:25 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:12:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	send_signal(int signal, int pid)
 	return (TRUE);
 }
 
-int	signal_broadcast(int signal, t_memory *memory)
+int	signal_broadcast(int signal, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < memory->data->n_philos)
+	while (i < data->n_philos)
 	{
-		kill(memory->philo[i].pid, signal);
+		kill(data->pid[i], signal);
 		usleep(100);
 		i++;
 	}

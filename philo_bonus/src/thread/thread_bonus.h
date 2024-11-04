@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:56:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/01 12:47:17 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:30:20 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,5 @@
 
 // Declare any necessary function prototypes here
 void	*monitor_philos(void *arg);
-void	*monitor_children(void *arg);
-int		init_threads(void *(monitor)(void *), t_memory *mem, int n);
 
 #endif /* THREAD_BONUS_H */

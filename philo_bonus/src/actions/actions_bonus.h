@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:32 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:59:41 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:57:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "config_bonus.h"
 # include "structs_bonus.h"
 # include "utils_bonus.h"
+# include "philo_bonus.h"
 
 // Declaraciones de funciones de acciones
 int	take_forks(t_philo *philo);

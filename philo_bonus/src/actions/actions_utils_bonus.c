@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:59:23 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:53 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	release_semaphore(sem_t *sem)
 
 int	fork_up(t_philo *philo, sem_t *fork, const char *fork_name)
 {
-	if (philo->data->state)
-		return (0);
 	if (acquire_semaphore(fork) == -1)
 		return (1);
 	return (print_action(philo, YELLOW, fork_name, 0));
@@ -44,7 +42,7 @@ int	one_philo(t_philo *philo)
 		return (0);
 	if (philo->data->n_philos == 1)
 		print_action(philo, YELLOW, R_FORK, 0);
-	smart_sleep(philo->data->t_die, philo);
+	smart_sleep(philo->data->t_die);
 	philo->data->state = 1;
 	return (1);
 }

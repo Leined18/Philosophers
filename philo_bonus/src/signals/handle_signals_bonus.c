@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:36:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/02 15:39:56 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:11:32 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	sig_ph(int sig)
 
 	memory = get_mem(NULL, 1);
 	if (sig == SIGUSR1)
-		signal_broadcast(SIGUSR1, memory);
+		signal_broadcast(SIGUSR1, memory->data);
 	else if (sig == SIGUSR2)
-		signal_broadcast(SIGUSR2, memory);
+		signal_broadcast(SIGUSR2, memory->data);
 	else if (sig == SIGKILL || sig == SIGINT)
 	{
-		signal_broadcast(SIGKILL, memory);
+		signal_broadcast(SIGKILL, memory->data);
 		clean_up(memory);
 		exit(0);
 	}

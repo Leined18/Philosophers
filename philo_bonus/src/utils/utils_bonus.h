@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/02 15:30:50 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:00:52 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 
 // Declaraciones de funciones utilitarias
 int			ft_atoi(const char *str);
-void		smart_sleep(long time_in_ms, t_philo *philo);
+int			smart_sleep(size_t ms);
 long long	get_time(void);
 t_memory	*get_mem(t_memory **mem, int y);
 // Declaraciones de funciones de parse
+void		erase(t_data *data);
 int			valid_args(int ac, char **av);
 int			success(char *msg, t_memory *mem);
 int			error(char *msg, t_memory *mem);
