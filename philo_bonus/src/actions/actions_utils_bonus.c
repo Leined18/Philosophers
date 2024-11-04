@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 11:15:53 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:07:02 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	one_philo(t_philo *philo)
 	if (philo->data->n_philos == 1)
 		print_action(philo, YELLOW, R_FORK, 0);
 	smart_sleep(philo->data->t_die);
-	philo->data->state = 1;
+	philo->data->state = DEAD;
 	return (1);
 }

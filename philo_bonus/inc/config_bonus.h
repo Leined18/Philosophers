@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:22:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 10:26:17 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:07:55 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 // macros
 # define TRUE 1
 # define FALSE 0
+
+# define DEAD 1
+# define ALIVE 2
 
 // Definiciones de mensajes
 # define SUCCESS "\033[1;32m✅ Success: Funtion finished well!\n\033[0m" // Verde

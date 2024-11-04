@@ -6,7 +6,7 @@
 #    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/11/02 15:31:21 by danpalac         ###   ########.fr        #
+#    Updated: 2024/11/04 12:34:55 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ IFLAGS		:= -I$(INC) -I$(SRC_DIR)$(ACTIONS_DIR) -I$(SRC_DIR)$(CHILD_DIR) -I$(SRC_
 ACTIONS_FILES := actions_bonus actions_utils_bonus
 CHILD_FILES := child_bonus child_utils_bonus
 DATA_FILES := clean_bonus init_bonus
-PHILO_FILES := check_bonus philo_utils_bonus
+PHILO_FILES := check_bonus
 SIGNALS_FILES := handle_signals_bonus signals_utils_bonus
 STATE_FILES := 
 SYNC_FILES := 

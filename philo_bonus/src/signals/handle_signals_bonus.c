@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:36:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 12:11:32 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:46:12 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void	sig_ch(int sig)
 {
 	if (sig == SIGUSR1)
 	{
-	}
-	if (sig == SIGUSR2)
-	{
 		exit(0);
 	}
+
 }

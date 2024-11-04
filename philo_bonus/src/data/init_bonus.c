@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 11:58:53 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:38:21 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	init_data(t_data **data, char **av)
 	(*data)->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		(*data)->n_eat = ft_atoi(av[5]);
-	else 
+	else
 		(*data)->n_eat = -1;
 	(*data)->start_time = get_time();
 	return (1);

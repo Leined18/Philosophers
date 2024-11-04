@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/29 09:57:29 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:03:45 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	success(char *msg, t_memory *mem)
 
 int	error(char *msg, t_memory *mem)
 {
+	if (mem)
+		clean_up(mem);
 	if (msg && *msg)
 	{
 		printf("%s", RED);
 		printf("%s", msg);
 		printf("%s", RESET);
 	}
-	if (mem)
-		clean_up(mem);
 	return (0);
 }
 

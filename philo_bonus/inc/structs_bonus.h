@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 12:19:52 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:25:24 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ struct s_philo;
 typedef struct s_data
 {
 	pid_t			*pid;
-	int				dead_flag;
-	int				eat_flag;
 	long long		start_time;
 	int				n_philos;
 	int				t_die;
@@ -47,11 +45,13 @@ typedef struct s_philo
 	t_data			*data;
 	sem_t			*right_fork;
 	sem_t			*left_fork;
+	pthread_t		thread;
 }					t_philo;
 
 typedef struct s_memory
 {
 	pid_t			ppid;
+	int 			status;
 	t_data			*data;
 	t_philo			*philo;
 	int				ac;
