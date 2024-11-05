@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:32 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 11:57:35 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:20:16 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	think(t_philo *philo);
 
 // utils actions
 int	one_philo(t_philo *philo);
-int	fork_up(t_philo *philo, sem_t *fork, const char *fork_name);
-int	fork_down(sem_t *fork, sem_t *sem);
+int	fork_up(t_philo *philo, sem_t **fork, const char *fork_name);
+int	fork_down(sem_t **fork, sem_t **sem);
 
 // Declaraciones de funciones de impresión
 int	print_action(t_philo *philo, const char *colour, const char *action,

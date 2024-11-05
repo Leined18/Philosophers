@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:25:24 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:38:49 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 typedef struct s_memory
 {
 	pid_t			ppid;
-	int 			status;
+	int				status;
 	t_data			*data;
 	t_philo			*philo;
 	int				ac;

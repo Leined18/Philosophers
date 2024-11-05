@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:28:45 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 12:38:21 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:49:27 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ static int	init_data(t_data **data, char **av)
 	(*data)->t_sleep = ft_atoi(av[4]);
 	if (av[5])
 		(*data)->n_eat = ft_atoi(av[5]);
-	else
-		(*data)->n_eat = -1;
-	(*data)->start_time = get_time();
 	return (1);
 }
 
@@ -67,7 +64,6 @@ static int	init_philos(t_philo **philos, t_data *data)
 		(*philos)[i].left_fork = &data->forks[i];
 		(*philos)[i].right_fork = &data->forks[(i + 1) % data->n_philos];
 		(*philos)[i].meals = data->n_eat;
-		(*philos)[i].last_meal = get_time();
 		i++;
 	}
 	return (1);

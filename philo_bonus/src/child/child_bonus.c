@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:03:50 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:34:50 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:50:17 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	run_philo_cycle(t_philo *philo)
 static void	*routine(t_philo *philo)
 {
 	philo->last_meal = get_time();
+	if (!philo->data->start_time)
+		philo->data->start_time = get_time();
 	if (pthread_create(&philo->thread, NULL, monitor_philos, (void *)philo))
 		return (NULL);
-	printf("Philosopher %d is alive\n", philo->id);
-	
 	if (philo->id % 2 == 0)
 		smart_sleep(5);
 	run_philo_cycle(philo);

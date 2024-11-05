@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:29:22 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:34:30 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:06:21 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

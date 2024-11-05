@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:39:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:34:27 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:53:16 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-int	setup_signals(t_memory *memory)
-{
-	(void)memory;
-	set_signals(sig_ph);
-	pause();
-	return (1);
-}
 
 int	main(int ac, char **av)
 {
