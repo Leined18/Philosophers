@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/26 08:20:14 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:21:53 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define UTILS_H
 
 # include "colors.h"
-
-#  include "structs.h"
+# include "structs.h"
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -39,6 +38,7 @@ int			init_memory(t_memory *mem, int ac, char **av);
 // Declaraciones de funciones de parse
 void		freedom(void **ptr);
 void		cleanup_data(t_data **data, t_philo **philos);
+void		cleanup(t_memory *mem);
 int			ft_error(char *err, t_memory *mem);
 int			ft_success(char *msg, t_memory *mem);
 

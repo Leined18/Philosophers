@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:05:57 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/05 11:47:40 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:42:49 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ void	*monitor_philos(void *arg)
 	{
 		if (is_dead(philo))
 		{
-            sem_wait(philo->data->dead_sem);
+			send_signal(SIGUSR1, getppid());
+			sem_wait(philo->data->dead_sem);
 			printf(RED "[%2lld] Philo [%d] %s\n" RESET, get_time()
-				- philo->data->start_time, philo->id, DIED);
-            sem_post(philo->data->dead_sem);
-            return (NULL);
+				- philo->start_time, philo->id, DIED);
+			sem_post(philo->data->dead_sem);
+			exit(0);
 		}
 		if (!check_meals(philo->data))
 		{
-			philo->data->state = ALIVE;
 			printf(MEALS_FINISHED);
-			return (NULL);
+			send_signal(SIGUSR2, getppid());
+			exit(0);
 		}
 		usleep(100);
 	}

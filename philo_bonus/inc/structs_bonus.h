@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/05 11:38:49 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:42:08 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 	int				dead_flag;
 	int				meals;
 	long			last_meal;
+	long long		start_time;
 	t_data			*data;
 	sem_t			*right_fork;
 	sem_t			*left_fork;

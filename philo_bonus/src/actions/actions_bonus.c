@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:25:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/05 11:31:26 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:43:14 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	take_forks(t_philo *philo)
 		if (!fork_up(philo, &philo->left_fork, L_FORK))
 			return (0);
 		if (!fork_up(philo, &philo->right_fork, R_FORK))
-			return (fork_down(&philo->left_fork, NULL), 0);
+			return (fork_down(&philo->left_fork), 0);
 	}
 	else
 	{
 		if (!fork_up(philo, &philo->right_fork, R_FORK))
 			return (0);
 		if (!fork_up(philo, &philo->left_fork, L_FORK))
-			return (fork_down(&philo->right_fork, NULL), 0);
+			return (fork_down(&philo->right_fork), 0);
 	}
 	return (1);
 }
@@ -35,18 +35,14 @@ int	eat(t_philo *philo)
 {
 	if (!take_forks(philo))
 		return (0);
-	sem_wait(philo->data->eat_sem);
 	philo->last_meal = get_time();
-	sem_post(philo->data->eat_sem);
 	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
-		return (0);
+		return (fork_down(&philo->right_fork), fork_down(&philo->left_fork), 0);
 	if (!is_alive(philo->data))
-		return (0);
+		return (fork_down(&philo->right_fork), fork_down(&philo->left_fork), 0);
 	if (philo->meals)
 		philo->meals--;
-	if (philo->id % 2)
-		return (fork_down(&philo->left_fork, &philo->right_fork));
-	return (fork_down(&philo->right_fork, &philo->left_fork));
+	return (fork_down(&philo->right_fork), fork_down(&philo->left_fork));
 }
 
 int	sleep_philo(t_philo *philo)
@@ -68,10 +64,10 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 {
 	long long	time_elapsed;
 
-	if (philo->data->state == DEAD)
+	if (philo->data->state)
 		return (0);
 	sem_wait(philo->data->print_sem);
-	time_elapsed = get_time() - philo->data->start_time;
+	time_elapsed = get_time() - philo->start_time;
 	printf("%s[%s%2lld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);
 	printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, philo->id, RESET,
 		BOLD_BLUE);
@@ -79,8 +75,11 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 	printf(RESET);
 	sem_post(philo->data->print_sem);
 	if (wait_time > 0)
-		smart_sleep(wait_time);
-	if (philo->data->state == DEAD)
+	{
+		if (!smart_sleep(wait_time, philo))
+			return (0);
+	}
+	if (philo->data->state)
 		return (0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 11:00:30 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:12:21 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@ int	ft_atoi(const char *str)
 	return (num * sign);
 }
 
-int	smart_sleep(size_t ms)
+int	smart_sleep(size_t ms, t_philo *philo)
 {
-	size_t	start;
+    long long	start;
 
-	start = get_time();
-	while ((get_time() - start) < ms)
-		usleep(9);
-	return (0);
+    start = get_time();
+    while (get_time() - start < (long long)ms)
+    {
+        if (philo->data->state)
+            return (0);
+        usleep(100);
+    }
+    return (1);
 }
 
 long long	get_time(void)

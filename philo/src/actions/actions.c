@@ -4,7 +4,7 @@ int	take_forks(t_philo *philo)
 {
 	if (philo->data->state)
 		return (0);
-	if (!lock_forks(philo, 1))
+	if (!lock_forks(philo))
 		return (0);
 	if (philo->data->state)
 		return (0);
@@ -15,9 +15,9 @@ int	eat(t_philo *philo)
 {
 	if (!take_forks(philo))
 		return (0);
+	philo->last_meal = get_time();
 	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
 		return (unlock_forks(philo, 0));
-	philo->last_meal = get_time();
 	if (philo->meals)
 		philo->meals--;
 	if (philo->id % 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:36:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 12:46:12 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:33:06 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void	sig_ph(int sig)
 
 	memory = get_mem(NULL, 1);
 	if (sig == SIGUSR1)
-		signal_broadcast(SIGUSR1, memory->data);
-	else if (sig == SIGUSR2)
-		signal_broadcast(SIGUSR2, memory->data);
-	else if (sig == SIGKILL || sig == SIGINT)
 	{
-		signal_broadcast(SIGKILL, memory->data);
-		clean_up(memory);
-		exit(0);
+		memory->data->state = DEAD;
+	}
+	else if (sig == SIGUSR2)
+	{
+		memory->data->state = ALIVE;
 	}
 }
 
@@ -41,5 +39,4 @@ void	sig_ch(int sig)
 	{
 		exit(0);
 	}
-
 }

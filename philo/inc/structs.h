@@ -14,6 +14,7 @@ typedef struct s_data
 	int				ntimes_eat;
 	int				state;
 	pthread_mutex_t	print;
+    pthread_mutex_t eaten;
 	struct s_philo	*philos;
 }					t_data;
 

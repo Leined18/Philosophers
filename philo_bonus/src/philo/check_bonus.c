@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:36:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/05 11:38:44 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:35:03 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	is_dead(t_philo *philo)
 {
 	if (get_time() - philo->last_meal >= philo->data->t_die)
 	{
-		philo->data->state = DEAD;
 		return (1);
 	}
 	return (0);

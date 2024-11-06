@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:09:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/28 10:51:05 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:09:24 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	is_alive(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->print);
+	pthread_mutex_lock(&philo->data->eaten);
 	if (get_time() - philo->last_meal > philo->data->t_die)
 	{
+		pthread_mutex_unlock(&philo->data->eaten);
 		philo->data->state = 1;
-		pthread_mutex_unlock(&philo->data->print);
 		return (0);
 	}
-	pthread_mutex_unlock(&philo->data->print);
+	pthread_mutex_unlock(&philo->data->eaten);
 	return (1);
 }
 
@@ -40,8 +40,6 @@ static int	check_life(t_memory *mem, int *dead_philo)
 		if (!is_alive(&mem->philos[ph]))
 		{
 			*dead_philo = ph;
-			pthread_mutex_unlock(mem->philos[ph].right_fork);
-			pthread_mutex_unlock(mem->philos[ph].left_fork);
 			return (0);
 		}
 		ph++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 16:23:29 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:48:47 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,63 +23,60 @@ int	one_philo(t_philo *philo)
 	return (1);
 }
 
-int	lock_forks(t_philo *philo, int n)
+int	unlock_fork(pthread_mutex_t *fork, int n)
 {
-	if ((philo->id % 2))
-	{
-		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK, 0))
-			return (unlock_forks(philo, 0));
-		if (!print_action(philo, YELLOW, R_FORK, 0))
-			return (unlock_forks(philo, 0));
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		if (!print_action(philo, YELLOW, R_FORK, 0))
-			return (unlock_forks(philo, 0));
-		pthread_mutex_lock(philo->left_fork);
-		if (!print_action(philo, YELLOW, L_FORK, 0))
-			return (unlock_forks(philo, 0));
-	}
+	pthread_mutex_unlock(fork);
 	return (n);
 }
 
+int	lock_fork(t_philo *philo, pthread_mutex_t *fork, char *fork_name)
+{
+	if (pthread_mutex_lock(fork) == 0)
+	{
+		if (!print_action(philo, YELLOW, fork_name, 0))
+			return (unlock_fork(fork, 0));
+		return (1);
+	}
+	return (2);
+}
 int	unlock_forks(t_philo *philo, int n)
 {
 	if (philo->id % 2)
 	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
+		unlock_fork(philo->right_fork, n);
+		unlock_fork(philo->left_fork, n);
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
+		unlock_fork(philo->left_fork, n);
+		unlock_fork(philo->right_fork, n);
 	}
 	return (n);
 }
 
-int	check_priority(t_philo *philos, int n_philos)
+int	lock_forks(t_philo *philo)
 {
-	int			i;
-	long long	highest_wait_time;
-	int			priority_philo;
-	long long	wait_time;
+	int	result;
 
-	highest_wait_time = 0;
-	priority_philo = -1;
-	wait_time = 0;
-	i = 0;
-	while (i < n_philos)
+	while (1)
 	{
-		wait_time = get_time() - philos[i].last_meal;
-		if (wait_time > highest_wait_time)
+		result = 0;
+		if (philo->id % 2 == 0)
 		{
-			highest_wait_time = wait_time;
-			priority_philo = i;
+			result += lock_fork(philo, philo->right_fork, R_FORK);
+			result += lock_fork(philo, philo->left_fork, L_FORK);
 		}
-		i++;
+		else
+		{
+			result += lock_fork(philo, philo->left_fork, L_FORK);
+			result += lock_fork(philo, philo->right_fork, R_FORK);
+		}
+		if (result == 2)
+			break ;
+		if (result == 1 || result == 0)
+			return (unlock_forks(philo, 0), 0);
+		unlock_forks(philo, 0);
+		usleep(100);
 	}
-	return (priority_philo);
+	return (1);
 }

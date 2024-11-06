@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:03:50 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/05 11:50:17 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:51:51 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 static void	run_philo_cycle(t_philo *philo)
 {
+	if (one_philo(philo))
+		return ;
 	while (1)
 	{
-		if (one_philo(philo))
-			return ;
 		if (!eat(philo))
-			return ;
-		if (is_dead(philo))
-			return ;
-		if (finished_meals(philo))
 			return ;
 		if (!sleep_philo(philo))
 			return ;
@@ -33,16 +29,13 @@ static void	run_philo_cycle(t_philo *philo)
 
 static void	*routine(t_philo *philo)
 {
-	philo->last_meal = get_time();
-	if (!philo->data->start_time)
-		philo->data->start_time = get_time();
 	if (pthread_create(&philo->thread, NULL, monitor_philos, (void *)philo))
 		return (NULL);
-	if (philo->id % 2 == 0)
-		smart_sleep(5);
+	if (!philo->start_time)
+		philo->start_time = get_time();
 	run_philo_cycle(philo);
 	pthread_join(philo->thread, NULL);
-	exit(1);
+	exit(0);
 }
 
 int	init_processes(t_memory *memory)
@@ -50,6 +43,7 @@ int	init_processes(t_memory *memory)
 	int	i;
 
 	i = 0;
+	set_signals(sig_ph);
 	while (i < memory->data->n_philos)
 	{
 		memory->data->pid[i] = fork();
@@ -59,6 +53,8 @@ int	init_processes(t_memory *memory)
 		}
 		else if (memory->data->pid[i] < 0)
 			return (0);
+		if (memory->data->state)
+			return (1);
 		i++;
 	}
 	return (1);

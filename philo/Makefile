@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 14:34:27 by danpalac          #+#    #+#              #
-#    Updated: 2024/10/26 08:21:51 by danpalac         ###   ########.fr        #
+#    Updated: 2024/11/06 12:55:30 by danpalac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ THREAD_DIR		:= thread/
 #==========COMMANDS============================================================#
 
 CC			:= gcc
-CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
+CFLAGS		:= -Wall -Wextra -Werror -g3 -fsanitize=thread -pthread
 RM			:= rm -rf
 AR			:= ar rcs
 LIB			:= ranlib

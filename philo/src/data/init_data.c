@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/25 12:43:31 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:08:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,25 @@ static int	init_forks_mutexes(t_data *data)
 	return (1);
 }
 
-static t_data	*init_data(int ac, char **av)
+static void	*init_data(int ac, char **av, t_data **data)
 {
-	t_data	*data;
-
 	(void)ac;
-	data = (t_data *)malloc(sizeof(t_data));
+	(*data) = (t_data *)malloc(sizeof(t_data));
+	if (!*data)
+		return (NULL);
+	memset(*data, 0, sizeof(t_data));
 	if (!data)
 		return (NULL);
-	memset(data, 0, sizeof(t_data));
-	if (!data)
-		return (NULL);
-	data->n_philos = ft_atoi(av[1]);
-	data->t_die = ft_atoi(av[2]);
-	data->t_eat = ft_atoi(av[3]);
-	data->t_sleep = ft_atoi(av[4]);
+	(*data)->n_philos = ft_atoi(av[1]);
+	(*data)->t_die = ft_atoi(av[2]);
+	(*data)->t_eat = ft_atoi(av[3]);
+	(*data)->t_sleep = ft_atoi(av[4]);
 	if (av[5])
-		data->ntimes_eat = ft_atoi(av[5]);
-	if (!init_forks_mutexes(data) || !init_mutex(&data->print))
-		return (freedom((void *)&data), NULL);
-	return (data);
+		(*data)->ntimes_eat = ft_atoi(av[5]);
+	if (!init_forks_mutexes((*data)) || !init_mutex(&(*data)->print)
+		|| !init_mutex(&(*data)->eaten))
+		return (freedom((void *)&(*data)), NULL);
+    return (*data);
 }
 
 static t_philo	*init_philos(t_data *data)
@@ -92,7 +91,7 @@ static t_philo	*init_philos(t_data *data)
 
 int	init_memory(t_memory *mem, int ac, char **av)
 {
-	mem->data = init_data(ac, av);
+	init_data(ac, av, &mem->data);
 	if (!mem->data)
 		return (ft_error(MEMORY_ERROR, mem));
 	mem->philos = init_philos(mem->data);

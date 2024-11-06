@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:32 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 16:22:07 by danpalac         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:39:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		think(t_philo *philo);
 
 // utils actions
 int		unlock_forks(t_philo *philo, int n);
-int		lock_forks(t_philo *philo, int n);
+int		lock_forks(t_philo *philo);
 int		check_priority(t_philo *philos, int n_philos);
 int		one_philo(t_philo *philo);
 

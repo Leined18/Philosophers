@@ -1,48 +1,55 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/20 20:26:25 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/24 13:56:24 by danpalac         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "utils.h"
+#include <stdarg.h>
 
 void	freedom(void **ptr)
 {
-	if (*ptr && ptr)
+	if (ptr && *ptr)
 	{
 		free(*ptr);
 		*ptr = NULL;
 	}
 }
 
+void	destroy_mutexes(pthread_mutex_t *forks, int n, ...)
+{
+	int				i;
+	va_list			args;
+	pthread_mutex_t	**mutex;
+
+	i = 0;
+	if (forks)
+	{
+		while (i < n)
+		{
+			pthread_mutex_destroy(&forks[i]);
+			i++;
+		}
+		freedom((void **)&forks);
+	}
+	va_start(args, n);
+	while (1)
+	{
+		mutex = va_arg(args, pthread_mutex_t **);
+		if (!mutex || !*mutex)
+			break ;
+		pthread_mutex_destroy(*mutex);
+	}
+	va_end(args);
+}
+
 void	cleanup_data(t_data **data, t_philo **philos)
 {
-	int	i;
-
-	if (philos)
+	if (philos && *philos)
 		freedom((void **)philos);
-	if (data)
+	if (data && *data)
 	{
-		if (*data)
-		{
-			if ((*data)->forks_mutexes)
-			{
-				i = 0;
-				while (i < (*data)->n_philos)
-				{
-					pthread_mutex_destroy(&(*data)->forks_mutexes[i]);
-					i++;
-				}
-				freedom((void **)&(*data)->forks_mutexes);
-			}
-			pthread_mutex_destroy(&(*data)->print);
-			freedom((void **)data);
-		}
+		destroy_mutexes((*data)->forks_mutexes, (*data)->n_philos,
+			&(*data)->print, &(*data)->eaten, NULL);
+		freedom((void **)data);
 	}
+}
+
+void	cleanup(t_memory *mem)
+{
+	cleanup_data(&(mem->data), &(mem->philos));
 }
