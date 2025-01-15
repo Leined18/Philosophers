@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 13:25:06 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:28:11 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	main(int ac, char **av)
 		return (0);
 	if (!start_simulation(&mem))
 		return (0);
-	if (mem.data->state == 2)
-		ft_success(MEALS_FINISHED, NULL);
 	cleanup(&mem);
 	return (0);
 }

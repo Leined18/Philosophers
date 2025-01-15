@@ -6,18 +6,11 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 13:08:31 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:01:25 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-static int	init_mutex(pthread_mutex_t *mutex)
-{
-	if (pthread_mutex_init(mutex, NULL))
-		return (0);
-	return (1);
-}
 
 static int	init_forks_mutexes(t_data *data)
 {
@@ -29,7 +22,7 @@ static int	init_forks_mutexes(t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		if (!init_mutex(&data->forks_mutexes[i]))
+		if (pthread_mutex_init(&data->forks_mutexes[i], NULL))
 		{
 			while (i > 0)
 			{
@@ -37,6 +30,31 @@ static int	init_forks_mutexes(t_data *data)
 				pthread_mutex_destroy(&data->forks_mutexes[i]);
 			}
 			freedom((void **)&data->forks_mutexes);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int	init_data_mutexes(t_data *data)
+{
+	int	i;
+
+	data->mutexes = malloc(sizeof(pthread_mutex_t) * MAX_MUTEX);
+	if (!data->mutexes)
+		return (0);
+	i = 0;
+	while (i < MAX_MUTEX)
+	{
+		if (pthread_mutex_init(&data->mutexes[i], NULL))
+		{
+			while (i > 0)
+			{
+				i--;
+				pthread_mutex_destroy(&data->mutexes[i]);
+			}
+			freedom((void **)&data->mutexes);
 			return (0);
 		}
 		i++;
@@ -57,12 +75,16 @@ static void	*init_data(int ac, char **av, t_data **data)
 	(*data)->t_die = ft_atoi(av[2]);
 	(*data)->t_eat = ft_atoi(av[3]);
 	(*data)->t_sleep = ft_atoi(av[4]);
+	(*data)->start_time = 0;
 	if (av[5])
 		(*data)->ntimes_eat = ft_atoi(av[5]);
-	if (!init_forks_mutexes((*data)) || !init_mutex(&(*data)->print)
-		|| !init_mutex(&(*data)->eaten))
-		return (freedom((void *)&(*data)), NULL);
-    return (*data);
+	if (!init_forks_mutexes((*data)))
+		return (freedom((void **)data), NULL);
+	if (!init_data_mutexes((*data)))
+		return (freedom((void **)data),
+			destroy_mutex_array((*data)->forks_mutexes, (*data)->n_philos),
+			NULL);
+	return (*data);
 }
 
 static t_philo	*init_philos(t_data *data)
@@ -80,9 +102,10 @@ static t_philo	*init_philos(t_data *data)
 		philos[i].meals = data->ntimes_eat;
 		philos[i].id = i + 1;
 		philos[i].data = data;
+		philos[i].mutexes = data->mutexes;
 		philos[i].left_fork = &data->forks_mutexes[i];
 		philos[i].right_fork = &data->forks_mutexes[(i + 1) % data->n_philos];
-		philos[i].last_meal = get_time();
+		philos[i].last_meal = get_time(NULL);
 		i++;
 	}
 	data->philos = philos;
@@ -94,6 +117,8 @@ int	init_memory(t_memory *mem, int ac, char **av)
 	init_data(ac, av, &mem->data);
 	if (!mem->data)
 		return (ft_error(MEMORY_ERROR, mem));
+	if (one_philo(&mem->data))
+		return (0);
 	mem->philos = init_philos(mem->data);
 	if (!mem->philos)
 		return (ft_error(PHILOS_ERROR, mem));

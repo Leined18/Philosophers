@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:07:06 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/23 16:25:40 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:03:47 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_error(char *err, t_memory *mem)
 		printf("%s", RESET);
 	}
 	if (mem)
-		cleanup_data(&mem->data, &mem->philos);
+		cleanup(mem);
 	return (0);
 }
 
@@ -34,7 +34,7 @@ int	ft_success(char *msg, t_memory *mem)
 		printf("%s", RESET);
 	}
 	if (mem)
-		cleanup_data(&mem->data, &mem->philos);
+		cleanup(mem);
 	return (1);
 }
 

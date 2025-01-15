@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 13:21:53 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:52:59 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTILS_H
 
 # include "colors.h"
-# include "structs.h"
+# include "types.h"
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -26,10 +26,15 @@
 // Declaraciones de funciones utilitarias
 int			ft_atoi(const char *str);
 int			valid_args(int ac, char **av);
-void		smart_sleep(long time_in_ms, t_philo *philo);
-long long	get_time(void);
+void		smart_sleep(long time_in_ms, t_data *data);
+long long	get_time(pthread_mutex_t *time_mutex);
+long		get_time_elapsed(t_philo *philo, int start_time);
+int			one_philo(t_data **data);
 
-// Declaraciones de funciones de manejo de hilos
+int			update_last_meal(t_philo *philo, long time);
+long		get_last_meal(t_philo *philo);
+int			set_global_state(t_data *data, int state);
+int			get_global_state(t_data *data);
 int			create_threads(t_memory *mem, void *(function)(void *));
 int			join_threads(t_memory *mem);
 // Declaraciones de funciones de data
@@ -37,8 +42,11 @@ int			init_memory(t_memory *mem, int ac, char **av);
 
 // Declaraciones de funciones de parse
 void		freedom(void **ptr);
-void		cleanup_data(t_data **data, t_philo **philos);
+void		print_dead(t_data *data, int dead_philo);
+void		destroy_mutex_array(pthread_mutex_t *mutexes, int count);
 void		cleanup(t_memory *mem);
+void		cleanup_data(t_data **data);
+void		cleanup_philos(t_philo **philos);
 int			ft_error(char *err, t_memory *mem);
 int			ft_success(char *msg, t_memory *mem);
 

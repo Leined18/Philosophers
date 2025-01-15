@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:32 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 12:39:35 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:49:27 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int		sleep_philo(t_philo *philo);
 int		think(t_philo *philo);
 
 // utils actions
-int		unlock_forks(t_philo *philo, int n);
+int		unlock_forks(t_philo *philo);
 int		lock_forks(t_philo *philo);
 int		check_priority(t_philo *philos, int n_philos);
-int		one_philo(t_philo *philo);
 
 // Declaraciones de funciones de impresión
 int		print_action(t_philo *philo, const char *colour, const char *action,
