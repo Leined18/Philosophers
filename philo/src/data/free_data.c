@@ -11,7 +11,7 @@ void	destroy_mutex_array(pthread_mutex_t *mutexes, int count)
 	i = -1;
 	while (++i < count)
 		pthread_mutex_destroy(&mutexes[i]);
-	freedom((void **)&mutexes);
+	free(mutexes);
 }
 // Limpieza de la estructura t_data
 void	cleanup_data(t_data **data)
@@ -21,14 +21,18 @@ void	cleanup_data(t_data **data)
 	// Destruir mutexes globales
 	destroy_mutex_array((*data)->forks_mutexes, (*data)->n_philos);
 	destroy_mutex_array((*data)->mutexes, MAX_MUTEX);
-	freedom((void **)data);
+	free(*data);
+	*data = NULL;
 }
 
 // Limpieza de la estructura t_philo
 void	cleanup_philos(t_philo **philos)
 {
 	if (philos && *philos)
-		freedom((void **)philos);
+	{
+		free(*philos);
+		*philos = NULL;
+	}
 }
 
 // Limpieza completa
@@ -38,4 +42,5 @@ void	cleanup(t_memory *mem)
 		return ;
 	cleanup_data(&mem->data);
 	cleanup_philos(&mem->philos);
+	freedom((void **)&mem);
 }

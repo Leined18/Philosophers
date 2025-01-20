@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:16:21 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/15 15:02:51 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:53:40 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,29 @@ void	freedom(void **ptr)
 	}
 }
 
-void	print_dead(t_data *data, int dead_philo)
+void	print_dead(long long start_time, int dead_philo)
 {
 	printf("%s", RED);
-	printf("[%lld] Philo [%d]  %s\n", get_time(&data->mutexes[PRINT])
-		- data->start_time, dead_philo + 1, DIED);
+	printf("[%lld] Philo [%d]  %s\n", get_time(NULL) - start_time, dead_philo,
+		DIED);
 	printf("%s", RESET);
 }
 
-int	one_philo(t_data **data)
+int	one_philo(int t_to_die, int n_philos)
 {
-	t_philo	*philo;
+	long long	start_time;
 
-	if ((*data)->n_philos > 1)
-		return (0);
-	if ((*data)->n_philos == 1)
+	if (n_philos == 1)
 	{
-		(*data)->start_time = get_time(&(*data)->mutexes[TIME]);
-		philo = malloc(sizeof(t_philo));
-		memset(philo, 0, sizeof(t_philo));
-		philo->mutexes = (*data)->mutexes;
-		philo->data = (*data);
-		philo->id = 1;
-		print_action(philo, YELLOW, R_FORK, 0);
-		freedom((void **)&philo);
-		smart_sleep((*data)->t_die, (*data));
-		print_dead((*data), 0);
-		cleanup_data(data);
+		start_time = get_time(NULL);
+		printf("%s[%s%2lld%s] ", BLACK, BRIGHT_WHITE, (get_time(NULL)
+				- start_time), BLACK);
+		printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, 1, RESET,
+			BOLD_BLUE);
+		printf(" %s%s\n", YELLOW, R_FORK);
+		printf(RESET);
+		usleep(1000 * t_to_die);
+		print_dead(start_time, 1);
 		return (1);
 	}
 	return (0);

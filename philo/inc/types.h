@@ -7,6 +7,7 @@ typedef enum e_mutex
 {
 	PRINT,
 	READ,
+	SET,
 	STATE,
 	TIME,
 	GLOBAL,
@@ -46,7 +47,7 @@ typedef struct s_memory
 {
 	t_data			*data;
 	t_philo			*philos;
-	void			*mem;
+	pthread_mutex_t	*mutexes;
 }					t_memory;
 
 #endif // STRUCTS_H

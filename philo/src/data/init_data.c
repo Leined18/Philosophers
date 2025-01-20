@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:25:36 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/15 15:01:25 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:52:05 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	init_forks_mutexes(t_data *data)
 				i--;
 				pthread_mutex_destroy(&data->forks_mutexes[i]);
 			}
-			freedom((void **)&data->forks_mutexes);
+			free(data->forks_mutexes);
 			return (0);
 		}
 		i++;
@@ -54,7 +54,7 @@ static int	init_data_mutexes(t_data *data)
 				i--;
 				pthread_mutex_destroy(&data->mutexes[i]);
 			}
-			freedom((void **)&data->mutexes);
+			free(data->mutexes);
 			return (0);
 		}
 		i++;
@@ -62,29 +62,32 @@ static int	init_data_mutexes(t_data *data)
 	return (1);
 }
 
-static void	*init_data(int ac, char **av, t_data **data)
+static void	*init_data(int ac, char **av)
 {
+	t_data	*data;
+
 	(void)ac;
-	(*data) = (t_data *)malloc(sizeof(t_data));
-	if (!*data)
-		return (NULL);
-	memset(*data, 0, sizeof(t_data));
+	(data) = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	(*data)->n_philos = ft_atoi(av[1]);
-	(*data)->t_die = ft_atoi(av[2]);
-	(*data)->t_eat = ft_atoi(av[3]);
-	(*data)->t_sleep = ft_atoi(av[4]);
-	(*data)->start_time = 0;
+	memset(data, 0, sizeof(t_data));
+	if (!data)
+		return (NULL);
+	(data)->n_philos = ft_atoi(av[1]);
+	(data)->t_die = ft_atoi(av[2]);
+	(data)->t_eat = ft_atoi(av[3]);
+	(data)->t_sleep = ft_atoi(av[4]);
+	(data)->start_time = 0;
 	if (av[5])
-		(*data)->ntimes_eat = ft_atoi(av[5]);
-	if (!init_forks_mutexes((*data)))
-		return (freedom((void **)data), NULL);
-	if (!init_data_mutexes((*data)))
-		return (freedom((void **)data),
-			destroy_mutex_array((*data)->forks_mutexes, (*data)->n_philos),
-			NULL);
-	return (*data);
+		(data)->ntimes_eat = ft_atoi(av[5]);
+	if (one_philo((data)->t_die, (data)->n_philos))
+		return (freedom((void **)&data), NULL);
+	if (!init_forks_mutexes((data)))
+		return (freedom((void **)&data), NULL);
+	if (!init_data_mutexes((data)))
+		return (freedom((void **)&data),
+			destroy_mutex_array((data)->forks_mutexes, (data)->n_philos), NULL);
+	return (data);
 }
 
 static t_philo	*init_philos(t_data *data)
@@ -98,7 +101,6 @@ static t_philo	*init_philos(t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		memset(&philos[i], 0, sizeof(t_philo));
 		philos[i].meals = data->ntimes_eat;
 		philos[i].id = i + 1;
 		philos[i].data = data;
@@ -112,15 +114,20 @@ static t_philo	*init_philos(t_data *data)
 	return (philos);
 }
 
-int	init_memory(t_memory *mem, int ac, char **av)
+t_memory	*init_memory(int ac, char **av)
 {
-	init_data(ac, av, &mem->data);
+	t_memory	*mem;
+
+	mem = (t_memory *)malloc(sizeof(t_memory));
+	if (!mem)
+		return (NULL);
+	memset(mem, 0, sizeof(t_memory));
+	mem->data = init_data(ac, av);
 	if (!mem->data)
-		return (ft_error(MEMORY_ERROR, mem));
-	if (one_philo(&mem->data))
-		return (0);
+		return (free(mem), NULL);
 	mem->philos = init_philos(mem->data);
 	if (!mem->philos)
-		return (ft_error(PHILOS_ERROR, mem));
-	return (ft_success(NULL, NULL));
+		return (free(mem->data), free(mem), NULL);
+	mem->mutexes = mem->data->mutexes;
+	return (ft_success(NULL, NULL), mem);
 }

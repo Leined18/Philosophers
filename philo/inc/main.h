@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:23:53 by danpalac          #+#    #+#             */
-/*   Updated: 2024/10/22 20:11:32 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:42:37 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "actions.h"
 # include "utils.h"
 
-void	monitor_philos(t_memory *mem);
+void	*monitor_philos(void *mem);
 
 #endif // MAIN_H

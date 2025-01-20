@@ -17,12 +17,14 @@ int	eat(t_philo *philo)
 		return (unlock_forks(philo), 0);
 	if (!print_action(philo, GREEN, EATING, philo->data->t_eat))
 		return (unlock_forks(philo), 0);
+	pthread_mutex_lock(&philo->mutexes[MEAL]);
 	if (philo->meals)
 	{
-		pthread_mutex_lock(&philo->mutexes[MEAL]);
-		philo->meals--;
-		pthread_mutex_unlock(&philo->mutexes[MEAL]);
+		pthread_mutex_lock(&philo->mutexes[SET]);
+		philo->meals -= 1;
+		pthread_mutex_unlock(&philo->mutexes[SET]);
 	}
+	pthread_mutex_unlock(&philo->mutexes[MEAL]);
 	return (unlock_forks(philo));
 }
 
@@ -50,7 +52,7 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 	pthread_mutex_lock(&philo->mutexes[PRINT]);
 	if (get_global_state(philo->data))
 		return (pthread_mutex_unlock(&philo->mutexes[PRINT]), 0);
-	time_elapsed = get_time(&philo->mutexes[TIME]) - philo->data->start_time;
+	time_elapsed = get_time(NULL) - philo->data->start_time;
 	printf("%s[%s%2ld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);
 	printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, philo->id, RESET,
 		BOLD_BLUE);

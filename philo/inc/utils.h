@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/15 14:52:59 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:52:20 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			valid_args(int ac, char **av);
 void		smart_sleep(long time_in_ms, t_data *data);
 long long	get_time(pthread_mutex_t *time_mutex);
 long		get_time_elapsed(t_philo *philo, int start_time);
-int			one_philo(t_data **data);
+int			one_philo(int t_to_die, int n_philos);
 
 int			update_last_meal(t_philo *philo, long time);
 long		get_last_meal(t_philo *philo);
@@ -38,11 +38,11 @@ int			get_global_state(t_data *data);
 int			create_threads(t_memory *mem, void *(function)(void *));
 int			join_threads(t_memory *mem);
 // Declaraciones de funciones de data
-int			init_memory(t_memory *mem, int ac, char **av);
+t_memory	*init_memory(int ac, char **av);
 
 // Declaraciones de funciones de parse
 void		freedom(void **ptr);
-void		print_dead(t_data *data, int dead_philo);
+void		print_dead(long long start_time, int dead_philo);
 void		destroy_mutex_array(pthread_mutex_t *mutexes, int count);
 void		cleanup(t_memory *mem);
 void		cleanup_data(t_data **data);
