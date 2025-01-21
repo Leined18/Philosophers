@@ -8,6 +8,7 @@ typedef enum e_mutex
 	PRINT,
 	READ,
 	SET,
+	SLEEP,
 	STATE,
 	TIME,
 	GLOBAL,

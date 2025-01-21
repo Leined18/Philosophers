@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:09:51 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/20 13:42:14 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:26:20 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static int	finished_meals(t_philo *philo)
 {
 	int	ret;
 
-	pthread_mutex_lock(&philo->mutexes[READ]);
-	ret = (philo->meals <= 0);
-	pthread_mutex_unlock(&philo->mutexes[READ]);
-	return (ret);
+	ret = get_meals(philo);
+	if (ret <= 0)
+		return (1);
+	return (0);
 }
 
 static int	check_meals(t_memory *mem)

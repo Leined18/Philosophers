@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 18:14:19 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/20 13:43:31 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:28:29 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ static int	start_simulation(t_memory *mem)
 
 	if (!create_threads(mem, philo_routine))
 		return (ft_error(THREAD_ERROR, mem));
-	if (pthread_create(&monitor_thread, NULL, monitor_philos, mem) != 0)
+	if (pthread_create(&monitor_thread, NULL, monitor_philos, mem))
 		return (ft_error(THREAD_ERROR, mem));
-	// monitor_philos(mem);
 	if (!join_threads(mem))
 		return (ft_error(THREAD_JOIN_ERROR, mem));
 	pthread_join(monitor_thread, NULL);
@@ -37,6 +36,8 @@ int	main(int ac, char **av)
 		return (0);
 	if (!start_simulation(mem))
 		return (0);
+	if (get_global_state(mem->data) == 2)
+		printf("%s", MEALS_FINISHED);
 	cleanup(mem);
 	return (0);
 }

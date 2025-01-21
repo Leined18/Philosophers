@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions_utils.c                                    :+:      :+:    :+:   */
+/*   actions_utils-2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/15 14:49:36 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:36:12 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,16 @@ int	lock_forks(t_philo *philo)
 	{
 		if (!lock_forks_mutexes(philo, &right_fork, &left_fork))
 			return (0);
-		pthread_mutex_lock(&philo->mutexes[READ]);
+		//pthread_mutex_lock(&philo->mutexes[READ]);
 		if (right_fork && left_fork)
 		{
-			pthread_mutex_unlock(&philo->mutexes[READ]);
+			//pthread_mutex_unlock(&philo->mutexes[READ]);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->mutexes[READ]);
+		//pthread_mutex_unlock(&philo->mutexes[READ]);
 		unlock_fork_mutex(left_fork);
 		unlock_fork_mutex(right_fork);
-		usleep(100);
+		usleep(10);
 	}
 	return (1);
 }

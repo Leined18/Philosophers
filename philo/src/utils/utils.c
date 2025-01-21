@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/20 13:03:47 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:20:00 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,21 @@ void	smart_sleep(long time_in_ms, t_data *data)
 	long long	start_time;
 	long long	elapsed_time;
 
-	start_time = get_time(NULL);
+	if (time_in_ms <= 0)
+		return ;
+	start_time = get_time(&data->mutexes[SLEEP]);
 	elapsed_time = 0;
 	while (1)
 	{
+		pthread_mutex_lock(&data->mutexes[SLEEP]);
 		elapsed_time = get_time(NULL) - start_time;
 		if (elapsed_time >= time_in_ms || get_global_state(data))
+		{
+			pthread_mutex_unlock(&data->mutexes[SLEEP]);
 			return ;
-		usleep(100);
+		}
+		pthread_mutex_unlock(&data->mutexes[SLEEP]);
+		usleep(10);
 	}
 }
 

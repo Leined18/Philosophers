@@ -15,10 +15,10 @@
 static void	set_start_time(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mutexes[GLOBAL]);
-	pthread_mutex_lock(&philo->mutexes[READ]);
+	// pthread_mutex_lock(&philo->mutexes[READ]);
 	if (!philo->data->start_time)
 		philo->data->start_time = get_time(NULL);
-	pthread_mutex_unlock(&philo->mutexes[READ]);
+	// pthread_mutex_unlock(&philo->mutexes[READ]);
 	pthread_mutex_unlock(&philo->mutexes[GLOBAL]);
 }
 
@@ -29,6 +29,8 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (!philo)
 		return (NULL);
+	if (!(philo->id % 2))
+		smart_sleep(100, philo->data);
 	set_start_time(philo);
 	while (1)
 	{
