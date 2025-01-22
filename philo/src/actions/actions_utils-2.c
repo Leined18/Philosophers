@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_utils-2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:33:28 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/21 10:36:12 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:46:56 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ pthread_mutex_t	*lock_fork(t_philo *philo, pthread_mutex_t *fork,
 }
 int	unlock_forks(t_philo *philo)
 {
-	if (philo->id % 2)
+	if ((philo->id % 2))
 	{
 		unlock_fork_mutex(philo->right_fork);
 		unlock_fork_mutex(philo->left_fork);
@@ -77,13 +77,8 @@ int	lock_forks(t_philo *philo)
 	{
 		if (!lock_forks_mutexes(philo, &right_fork, &left_fork))
 			return (0);
-		//pthread_mutex_lock(&philo->mutexes[READ]);
 		if (right_fork && left_fork)
-		{
-			//pthread_mutex_unlock(&philo->mutexes[READ]);
 			break ;
-		}
-		//pthread_mutex_unlock(&philo->mutexes[READ]);
 		unlock_fork_mutex(left_fork);
 		unlock_fork_mutex(right_fork);
 		usleep(10);

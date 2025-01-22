@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:40:03 by danpalac          #+#    #+#             */
-/*   Updated: 2025/01/15 14:43:41 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:40:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	update_last_meal(t_philo *philo, long time)
 		return (0);
 	pthread_mutex_lock(&philo->mutexes[MEAL]);
 	philo->last_meal = time;
-	if (get_global_state(philo->data))
-		return (pthread_mutex_unlock(&philo->mutexes[MEAL]), 0);
 	pthread_mutex_unlock(&philo->mutexes[MEAL]);
 	return (1);
 }
@@ -32,8 +30,6 @@ long	get_last_meal(t_philo *philo)
 		return (0);
 	pthread_mutex_lock(&philo->mutexes[MEAL]);
 	time = get_time(&philo->mutexes[TIME]) - philo->last_meal;
-	if (get_global_state(philo->data))
-		return (pthread_mutex_unlock(&philo->mutexes[MEAL]), 0);
 	pthread_mutex_unlock(&philo->mutexes[MEAL]);
 	return (time);
 }
@@ -57,4 +53,3 @@ int	get_global_state(t_data *data)
 	pthread_mutex_unlock(&data->mutexes[STATE]);
 	return (state);
 }
-
