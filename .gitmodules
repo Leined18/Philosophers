@@ -1,0 +1,6 @@
+[submodule "philo_bonus"]
+	path = philo_bonus
+	url = https://github.com/Leined18/philo_bonus.git
+[submodule "philo"]
+	path = philo
+	url = https://github.com/Leined18/philo.git
