@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:53:14 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:12:43 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:38:27 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int			ft_atoi(const char *str);
 int			smart_sleep(size_t ms, t_philo *philo);
 long long	get_time(void);
 t_memory	*get_mem(t_memory **mem, int y);
+void		*ft_calloc(size_t count, size_t size);
 // Declaraciones de funciones de parse
 
 int			valid_args(int ac, char **av);

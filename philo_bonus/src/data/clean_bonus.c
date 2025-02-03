@@ -6,13 +6,11 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:32:15 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:46:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
-
-
 
 int	close_semaphores(t_data *data)
 {
@@ -24,13 +22,14 @@ int	close_semaphores(t_data *data)
 		sem_close(&data->forks[i]);
 		i++;
 	}
-	sem_close(data->print_sem);
-	sem_close(data->dead_sem);
-	sem_close(data->eat_sem);
-	sem_unlink("forks");
-	sem_unlink("print_sem");
-	sem_unlink("dead_sem");
-	sem_unlink("eat_sem");
+	i = 0;
+	while (i < MAX_SEM)
+	{
+		sem_close(&data->sem[i]);
+		i++;
+	}
+	sem_close(data->sem);
+	sem_unlink("semaphores");
 	return (1);
 }
 

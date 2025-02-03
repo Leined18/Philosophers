@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:25:16 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:43:14 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:47:02 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ int	print_action(t_philo *philo, const char *color, const char *action,
 
 	if (philo->data->state)
 		return (0);
-	sem_wait(philo->data->print_sem);
+	sem_wait(&philo->sem[PRINT]);
 	time_elapsed = get_time() - philo->start_time;
 	printf("%s[%s%2lld%s] ", BLACK, BRIGHT_WHITE, time_elapsed, BLACK);
 	printf("%sPhilo [%s%d%s%s] ", BOLD_BLUE, BOLD_CYAN, philo->id, RESET,
 		BOLD_BLUE);
 	printf(" %s%s\n", color, action);
 	printf(RESET);
-	sem_post(philo->data->print_sem);
+	sem_post(&philo->sem[PRINT]);
 	if (wait_time > 0)
 	{
 		if (!smart_sleep(wait_time, philo))

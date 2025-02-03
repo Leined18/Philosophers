@@ -6,7 +6,7 @@
 /*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:22:35 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/04 13:07:55 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:34:35 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define TRUE 1
 # define FALSE 0
 
-# define DEAD 1
-# define ALIVE 2
+# define DEAD_STATE 1
+# define ALIVE_STATE 2
 
 // Definiciones de mensajes
 # define SUCCESS "\033[1;32m✅ Success: Funtion finished well!\n\033[0m" // Verde

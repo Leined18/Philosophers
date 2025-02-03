@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:05:57 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:42:49 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:48:06 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	*monitor_philos(void *arg)
 		if (is_dead(philo))
 		{
 			send_signal(SIGUSR1, getppid());
-			sem_wait(philo->data->dead_sem);
+			sem_wait(&philo->sem[DEAD]);
 			printf(RED "[%2lld] Philo [%d] %s\n" RESET, get_time()
 				- philo->start_time, philo->id, DIED);
-			sem_post(philo->data->dead_sem);
+			sem_post(&philo->sem[DEAD]);
 			exit(0);
 		}
 		if (!check_meals(philo->data))

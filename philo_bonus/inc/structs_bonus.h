@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:40 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:42:08 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:41:31 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include "config_bonus.h"
 
 struct s_philo;
+
+typedef enum e_sem
+{
+	PRINT,
+	DEAD,
+	EAT,
+	SLEEP,
+	MAX_SEM
+}					t_sem;
 
 typedef struct s_data
 {
@@ -28,9 +37,7 @@ typedef struct s_data
 	int				n_eat;
 	int				state;
 	sem_t			*forks;
-	sem_t			*print_sem;
-	sem_t			*dead_sem;
-	sem_t			*eat_sem;
+	sem_t			*sem;
 	pthread_t		thread;
 	struct s_philo	*philo;
 }					t_data;
@@ -44,6 +51,7 @@ typedef struct s_philo
 	long			last_meal;
 	long long		start_time;
 	t_data			*data;
+	sem_t			*sem;
 	sem_t			*right_fork;
 	sem_t			*left_fork;
 	pthread_t		thread;

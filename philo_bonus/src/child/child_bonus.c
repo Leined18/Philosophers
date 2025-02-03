@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:03:50 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 12:51:51 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:00:10 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	run_philo_cycle(t_philo *philo)
 
 static void	*routine(t_philo *philo)
 {
+	set_signals(sig_ch);
+	pause();
 	if (pthread_create(&philo->thread, NULL, monitor_philos, (void *)philo))
 		return (NULL);
 	if (!philo->start_time)
@@ -48,14 +50,12 @@ int	init_processes(t_memory *memory)
 	{
 		memory->data->pid[i] = fork();
 		if (memory->data->pid[i] == 0)
-		{
 			routine(&memory->data->philo[i]);
-		}
 		else if (memory->data->pid[i] < 0)
 			return (0);
-		if (memory->data->state)
-			return (1);
 		i++;
 	}
+	signal_broadcast(SIGUSR1, memory->data->pid, memory->data->n_philos);
+	waitpid(-1, NULL, 0);
 	return (1);
 }

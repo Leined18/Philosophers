@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:36:51 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:35:03 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:43:59 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	is_dead(t_philo *philo)
 
 int	is_alive(t_data *data)
 {
-	sem_wait(data->dead_sem);
+	sem_wait(&data->sem[DEAD]);
 	if (data->state == DEAD)
 	{
-		sem_post(data->dead_sem);
+		sem_post(&data->sem[DEAD]);
 		return (0);
 	}
-	sem_post(data->dead_sem);
+	sem_post(&data->sem[DEAD]);
 	return (1);
 }
 

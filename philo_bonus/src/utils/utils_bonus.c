@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danpalac <danpalac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danpalac <danpalac@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:21:44 by danpalac          #+#    #+#             */
-/*   Updated: 2024/11/06 10:12:21 by danpalac         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:38:20 by danpalac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+
+void *ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	memset(ptr, 0, count * size);
+	return (ptr);
+}
 
 t_memory	*get_mem(t_memory **mem, int y)
 {
